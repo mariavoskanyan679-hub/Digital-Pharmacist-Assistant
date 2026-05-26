@@ -1,511 +1,302 @@
-export default function VelouraHealthApp() {
-  const symptomCards = [
-    {
-      title: 'Sleep Support',
-      description: 'Calming nighttime wellness recommendations with magnesium blends and restorative rituals.',
-      accent: 'from-stone-100 to-amber-50'
-    },
-    {
-      title: 'Stress Relief',
-      description: 'Adaptogenic wellness guidance designed for modern lifestyles and mental balance.',
-      accent: 'from-emerald-50 to-stone-100'
-    },
-    {
-      title: 'Energy Support',
-      description: 'Daily vitality support with premium nutrients and clean supplementation.',
-      accent: 'from-orange-50 to-stone-100'
-    },
-    {
-      title: 'Immunity',
-      description: 'Elegant immunity support powered by modern wellness science.',
-      accent: 'from-lime-50 to-stone-100'
-    },
-    {
-      title: 'Focus & Mind',
-      description: 'Luxury nootropic-inspired support for clarity, creativity and calm focus.',
-      accent: 'from-slate-100 to-emerald-50'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veloura Health | Luxury Wellness & Digital Pharmacist</title>
+  <meta name="description" content="Luxury wellness guided by modern pharmacy. Science-backed guidance, curated supplements, and premium digital care.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ivory: '#F9F7F2', pearl: '#F5F0E6', cream: '#FFF8F0',
+            champagne: '#E8D5C4', sage: '#B8C9B8', 'sage-dark': '#8A9F8A',
+            'text-dark': '#2C2C2C', 'text-muted': '#6B6B6B'
+          },
+          fontFamily: { serif: ['Playfair Display', 'serif'], sans: ['Inter', 'sans-serif'] },
+          animation: { float: 'float 6s ease-in-out infinite', fadeInUp: 'fadeInUp 0.8s ease-out forwards' },
+          keyframes: {
+            float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+            fadeInUp: { '0%': { opacity: '0', transform: 'translateY(20px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } }
+          }
+        }
+      }
     }
-  ];
-
-  const ingredients = [
-    {
-      name: 'Magnesium',
-      benefits: 'Supports sleep, relaxation and muscle recovery.'
-    },
-    {
-      name: 'Vitamin D',
-      benefits: 'Helps immunity, mood balance and bone wellness.'
-    },
-    {
-      name: 'Zinc',
-      benefits: 'Essential mineral for recovery and immune support.'
-    },
-    {
-      name: 'Omega-3',
-      benefits: 'Supports heart health, focus and beauty wellness.'
-    }
-  ];
-
-  const products = [
-    {
-      title: 'Moonlight Magnesium',
-      category: 'Sleep Wellness',
-      price: '$48'
-    },
-    {
-      title: 'Veloura Daily Glow',
-      category: 'Beauty Wellness',
-      price: '$64'
-    },
-    {
-      title: 'Calm Adaptogen Blend',
-      category: 'Stress Support',
-      price: '$58'
-    },
-    {
-      title: 'Radiance Omega Complex',
-      category: 'Premium Supplement',
-      price: '$72'
-    }
-  ];
-
-  return (
-    <div className="min-h-screen bg-[#f8f4ee] text-[#4a433d] overflow-hidden font-sans">
-      <style>{`
-        html {
-          scroll-behavior: smooth;
-        }
-
-        body {
-          background: #f8f4ee;
-        }
-
-        .glass {
-          background: rgba(255,255,255,0.5);
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(255,255,255,0.35);
-        }
-
-        .luxury-gradient {
-          background: linear-gradient(135deg, #f8f4ee 0%, #f2eadf 50%, #e9efe7 100%);
-        }
-
-        .soft-shadow {
-          box-shadow: 0 10px 40px rgba(120, 109, 98, 0.08);
-        }
-
-        .float {
-          animation: float 6s ease-in-out infinite;
-        }
-
-        .glow {
-          animation: glow 5s ease-in-out infinite alternate;
-        }
-
-        @keyframes float {
-          0% { transform: translateY(0px); }
-          50% { transform: translateY(-12px); }
-          100% { transform: translateY(0px); }
-        }
-
-        @keyframes glow {
-          0% { box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-          100% { box-shadow: 0 0 50px rgba(255,255,255,0.6); }
-        }
-      `}</style>
-
-      {/* HERO */}
-      <section className="relative luxury-gradient min-h-screen flex items-center px-6 lg:px-20 py-24">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-white/30 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-80 h-80 bg-emerald-100/40 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="relative z-10 grid lg:grid-cols-2 gap-20 items-center w-full max-w-7xl mx-auto">
-          <div>
-            <div className="inline-flex items-center px-4 py-2 rounded-full glass text-sm tracking-wide mb-8">
-              Premium Digital Wellness Experience
-            </div>
-
-            <h1 className="text-5xl lg:text-7xl leading-tight font-light mb-8 text-[#3f3a35]">
-              Luxury Wellness Guided by Modern Pharmacy
-            </h1>
-
-            <p className="text-lg lg:text-xl text-[#6e655d] leading-relaxed mb-10 max-w-xl">
-              Veloura Health combines pharmaceutical-inspired wellness guidance with elegant luxury e-commerce to create a calm, intelligent and premium health experience.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-[#d8c7ae] hover:bg-[#cdb89d] transition-all duration-500 px-8 py-4 rounded-full text-white tracking-wide soft-shadow hover:scale-105">
-                Explore Wellness
-              </button>
-
-              <button className="glass px-8 py-4 rounded-full hover:scale-105 transition-all duration-500">
-                Meet the Assistant
-              </button>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="glass rounded-[40px] p-8 soft-shadow float">
-              <div className="bg-white/70 rounded-3xl p-6 mb-6">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm tracking-wide">AI Wellness Assistant</span>
-                  <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="bg-[#f6efe6] rounded-2xl p-4 text-sm max-w-[85%]">
-                    Can I combine magnesium with vitamin D?
-                  </div>
-
-                  <div className="bg-[#e9efe7] rounded-2xl p-4 text-sm ml-auto max-w-[90%]">
-                    Yes — magnesium may help support vitamin D metabolism and absorption. Evening use is often preferred for relaxation support.
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white/70 rounded-2xl p-5">
-                  <p className="text-3xl font-light mb-1">24/7</p>
-                  <p className="text-sm text-[#6e655d]">Digital Guidance</p>
-                </div>
-
-                <div className="bg-white/70 rounded-2xl p-5">
-                  <p className="text-3xl font-light mb-1">Premium</p>
-                  <p className="text-sm text-[#6e655d]">Wellness UX</p>
-                </div>
-              </div>
-            </div>
-
-            <div className="absolute -bottom-10 -left-10 glass rounded-3xl px-6 py-4 soft-shadow glow">
-              Trusted Wellness Experience
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SYMPTOM SUPPORT */}
-      <section className="py-28 px-6 lg:px-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <p className="tracking-[0.3em] uppercase text-sm mb-4 text-[#9b8e81]">
-              Personalized Wellness
-            </p>
-            <h2 className="text-4xl lg:text-5xl font-light mb-6">
-              Symptom Support
-            </h2>
-            <p className="text-[#6e655d] max-w-2xl mx-auto leading-relaxed">
-              Discover elegant wellness recommendations inspired by modern pharmacy guidance and luxury self-care rituals.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {symptomCards.map((card, index) => (
-              <div
-                key={index}
-                className={`bg-gradient-to-br ${card.accent} rounded-[32px] p-8 soft-shadow hover:-translate-y-2 transition-all duration-500 group cursor-pointer`}
-              >
-                <div className="w-14 h-14 rounded-2xl bg-white/60 mb-6 flex items-center justify-center text-xl">
-                  ✨
-                </div>
-
-                <h3 className="text-2xl font-light mb-4 group-hover:translate-x-1 transition-all duration-300">
-                  {card.title}
-                </h3>
-
-                <p className="text-[#6e655d] leading-relaxed mb-8">
-                  {card.description}
-                </p>
-
-                <button className="rounded-full px-5 py-3 bg-white/70 hover:bg-white transition-all duration-300 text-sm">
-                  View Recommendations
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* INGREDIENTS */}
-      <section className="py-28 px-6 lg:px-20 bg-white/40 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row justify-between items-end gap-10 mb-16">
-            <div>
-              <p className="tracking-[0.3em] uppercase text-sm mb-4 text-[#9b8e81]">
-                Ingredient Education
-              </p>
-              <h2 className="text-4xl lg:text-5xl font-light max-w-xl leading-tight">
-                Science-backed wellness with elegant simplicity.
-              </h2>
-            </div>
-
-            <p className="max-w-md text-[#6e655d] leading-relaxed">
-              Transparent ingredient education designed with a calm luxury aesthetic and modern wellness clarity.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
-            {ingredients.map((item, index) => (
-              <div
-                key={index}
-                className="glass rounded-[30px] p-8 soft-shadow hover:scale-[1.02] transition-all duration-500"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-[#f5eee5] mb-6 flex items-center justify-center text-2xl">
-                  💊
-                </div>
-
-                <h3 className="text-2xl font-light mb-4">{item.name}</h3>
-                <p className="text-[#6e655d] leading-relaxed mb-6">
-                  {item.benefits}
-                </p>
-
-                <button className="text-sm tracking-wide hover:translate-x-1 transition-all duration-300">
-                  Learn More →
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ROUTINES */}
-      <section className="py-28 px-6 lg:px-20">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10">
-          <div className="bg-[#f4ede5] rounded-[40px] p-10 soft-shadow">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-3xl font-light">Morning Routine</h3>
-              <span className="text-3xl">☀️</span>
-            </div>
-
-            <div className="space-y-5">
-              <div className="glass rounded-2xl p-5">
-                Vitamin D + Omega-3 support
-              </div>
-              <div className="glass rounded-2xl p-5">
-                Hydration and energy balance
-              </div>
-              <div className="glass rounded-2xl p-5">
-                Focus-enhancing wellness ritual
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-[#e8efe5] rounded-[40px] p-10 soft-shadow">
-            <div className="flex items-center justify-between mb-8">
-              <h3 className="text-3xl font-light">Evening Routine</h3>
-              <span className="text-3xl">🌙</span>
-            </div>
-
-            <div className="space-y-5">
-              <div className="glass rounded-2xl p-5">
-                Magnesium relaxation support
-              </div>
-              <div className="glass rounded-2xl p-5">
-                Calm adaptogen ritual
-              </div>
-              <div className="glass rounded-2xl p-5">
-                Sleep preparation guidance
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* DIGITAL PHARMACIST */}
-      <section className="py-28 px-6 lg:px-20 bg-gradient-to-br from-[#f6f1ea] to-[#edf2ea]">
-        <div className="max-w-5xl mx-auto text-center mb-16">
-          <p className="tracking-[0.3em] uppercase text-sm mb-4 text-[#9b8e81]">
-            Digital Pharmacist Assistant
-          </p>
-
-          <h2 className="text-4xl lg:text-5xl font-light mb-6">
-            Elegant AI wellness guidance.
-          </h2>
-
-          <p className="text-[#6e655d] max-w-2xl mx-auto leading-relaxed">
-            A premium conversational experience inspired by pharmacy consultation and luxury wellness brands.
-          </p>
-        </div>
-
-        <div className="max-w-4xl mx-auto glass rounded-[40px] p-8 soft-shadow">
-          <div className="space-y-6">
-            <div className="flex justify-start">
-              <div className="bg-white/70 rounded-[24px] px-6 py-5 max-w-lg">
-                Can I combine magnesium with vitamin D?
-              </div>
-            </div>
-
-            <div className="flex justify-end">
-              <div className="bg-[#dce7d9] rounded-[24px] px-6 py-5 max-w-xl leading-relaxed">
-                Magnesium and vitamin D are commonly paired in wellness routines. Magnesium may help support vitamin D utilization while promoting relaxation and recovery.
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-white/40 flex items-center gap-4">
-              <input
-                className="flex-1 bg-white/60 rounded-full px-6 py-4 outline-none"
-                placeholder="Ask your wellness question..."
-              />
-
-              <button className="bg-[#d8c7ae] hover:bg-[#cab495] transition-all duration-300 rounded-full px-8 py-4 text-white">
-                Send
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTS */}
-      <section className="py-28 px-6 lg:px-20">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-end mb-16 flex-wrap gap-6">
-            <div>
-              <p className="tracking-[0.3em] uppercase text-sm mb-4 text-[#9b8e81]">
-                Featured Products
-              </p>
-
-              <h2 className="text-4xl lg:text-5xl font-light">
-                Premium wellness essentials.
-              </h2>
-            </div>
-
-            <button className="glass rounded-full px-6 py-4 hover:scale-105 transition-all duration-300">
-              Shop Collection
-            </button>
-          </div>
-
-          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
-            {products.map((product, index) => (
-              <div
-                key={index}
-                className="group bg-white/60 rounded-[34px] overflow-hidden soft-shadow hover:-translate-y-2 transition-all duration-500"
-              >
-                <div className="h-72 bg-gradient-to-br from-[#f2eadf] to-[#e8efe5] relative overflow-hidden">
-                  <div className="absolute inset-0 flex items-center justify-center text-6xl group-hover:scale-110 transition-all duration-700">
-                    ✨
-                  </div>
-                </div>
-
-                <div className="p-7">
-                  <p className="text-sm tracking-wide text-[#8f857c] mb-3">
-                    {product.category}
-                  </p>
-
-                  <h3 className="text-2xl font-light mb-4">
-                    {product.title}
-                  </h3>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg">{product.price}</span>
-
-                    <button className="rounded-full bg-[#d8c7ae] hover:bg-[#cab495] transition-all duration-300 text-white px-5 py-3 text-sm">
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* NEWSLETTER */}
-      <section className="px-6 lg:px-20 pb-28">
-        <div className="max-w-6xl mx-auto rounded-[50px] luxury-gradient p-12 lg:p-20 soft-shadow relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-white/20 rounded-full blur-3xl"></div>
-
-          <div className="relative z-10 text-center max-w-3xl mx-auto">
-            <p className="tracking-[0.3em] uppercase text-sm mb-4 text-[#9b8e81]">
-              Join Veloura Health
-            </p>
-
-            <h2 className="text-4xl lg:text-6xl font-light mb-8 leading-tight">
-              Subscribe to luxury wellness insights.
-            </h2>
-
-            <p className="text-[#6e655d] leading-relaxed mb-10">
-              Receive curated wellness guidance, supplement education and elegant self-care inspiration.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-              <input
-                placeholder="Enter your email"
-                className="flex-1 rounded-full px-7 py-5 bg-white/70 outline-none"
-              />
-
-              <button className="rounded-full px-8 py-5 bg-[#d8c7ae] hover:bg-[#cab495] transition-all duration-300 text-white whitespace-nowrap">
-                Subscribe
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 404 EXPERIENCE */}
-      <section className="py-28 px-6 lg:px-20 bg-[#f5efe7]">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="text-8xl mb-8 float">💊</div>
-
-          <h2 className="text-5xl lg:text-7xl font-light mb-8">
-            404
-          </h2>
-
-          <p className="text-xl text-[#6e655d] mb-10 max-w-2xl mx-auto leading-relaxed">
-            This wellness page has gently drifted away. Let us guide you back to your luxury wellness experience.
-          </p>
-
-          <button className="rounded-full px-8 py-5 bg-[#d8c7ae] hover:bg-[#cab495] transition-all duration-300 text-white soft-shadow">
-            Return to Veloura
-          </button>
-        </div>
-      </section>
-
-      {/* README SECTION */}
-      <section className="py-28 px-6 lg:px-20 bg-[#fdfbf8] border-t border-[#ece4da]">
-        <div className="max-w-5xl mx-auto">
-          <div className="glass rounded-[40px] p-10 lg:p-16 soft-shadow">
-            <h2 className="text-4xl font-light mb-10">
-              README.md
-            </h2>
-
-            <div className="space-y-8 text-[#5f574f] leading-relaxed">
-              <div>
-                <h3 className="text-2xl font-light mb-3">Veloura Health</h3>
-                <p>
-                  A luxury digital wellness and pharmacist assistant experience built with React, Tailwind CSS and premium UI interactions.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-light mb-3">Features</h3>
-                <ul className="space-y-2 list-disc pl-6">
-                  <li>Luxury wellness startup UI</li>
-                  <li>Digital pharmacist assistant experience</li>
-                  <li>Responsive mobile-first design</li>
-                  <li>Soft glassmorphism and editorial layouts</li>
-                  <li>Wellness e-commerce inspired sections</li>
-                  <li>Elegant microinteractions and animations</li>
-                </ul>
-              </div>
-
-              <div>
-                <h3 className="text-2xl font-light mb-3">Tech Stack</h3>
-                <div className="flex flex-wrap gap-3">
-                  {['React', 'Tailwind CSS', 'Framer Motion', 'Modern UX', 'Responsive Design'].map((item, index) => (
-                    <span
-                      key={index}
-                      className="px-5 py-3 rounded-full bg-[#f1e7da]"
-                    >
-                      {item}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+  </script>
+  <style>
+    .glass { background: rgba(255, 255, 255, 0.45); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.6); }
+    .luxury-shadow { box-shadow: 0 8px 32px rgba(184, 201, 184, 0.15); }
+    .text-gradient { background: linear-gradient(135deg, #8A9F8A, #E8D5C4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .scroll-reveal { opacity: 0; transform: translateY(30px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+    ::selection { background: #B8C9B8; color: white; }
+    /* Hide scrollbar for chat */
+    .chat-scroll::-webkit-scrollbar { width: 4px; }
+    .chat-scroll::-webkit-scrollbar-thumb { background: #E8D5C4; border-radius: 10px; }
+  </style>
+</head>
+<body class="bg-ivory font-sans text-text-dark antialiased">
+  
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 glass px-6 py-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="font-serif text-2xl font-semibold tracking-wide">Veloura <span class="text-sage-dark">Health</span></h1>
+      <div class="hidden md:flex space-x-8 text-sm font-medium text-text-muted">
+        <a href="#symptoms" class="hover:text-text-dark transition">Symptoms</a>
+        <a href="#ingredients" class="hover:text-text-dark transition">Ingredients</a>
+        <a href="#routine" class="hover:text-text-dark transition">Routines</a>
+        <a href="#assistant" class="hover:text-text-dark transition">Pharmacist AI</a>
+        <a href="#products" class="hover:text-text-dark transition">Shop</a>
+      </div>
+      <button class="bg-sage text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-sage-dark transition shadow-lg shadow-sage/30">Get Started</button>
     </div>
-  );
-}
+  </nav>
+
+  <!-- Hero -->
+  <header class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-6 overflow-hidden">
+    <div class="absolute inset-0 z-0 pointer-events-none">
+      <div class="absolute top-20 left-10 w-64 h-64 bg-champagne/30 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-20 right-10 w-80 h-80 bg-sage/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto text-center scroll-reveal">
+      <p class="text-sage-dark font-medium tracking-widest text-sm uppercase mb-4">Digital Pharmacist Assistant</p>
+      <h2 class="font-serif text-5xl md:text-7xl font-medium leading-tight mb-6">Luxury Wellness <br/><span class="text-gradient">Guided by Modern Pharmacy</span></h2>
+      <p class="text-text-muted text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light">Science-backed guidance, curated supplements, and a premium wellness journey tailored to your rhythm.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="bg-text-dark text-white px-8 py-4 rounded-full font-medium hover:bg-black transition luxury-shadow">Start Your Assessment</button>
+        <button class="glass px-8 py-4 rounded-full font-medium hover:bg-white/60 transition">Explore Ingredients</button>
+      </div>
+    </div>
+
+    <!-- Floating Cards -->
+    <div class="absolute top-32 right-10 glass p-4 rounded-2xl luxury-shadow animate-float hidden md:block">
+      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-sage/20 flex items-center justify-center">🌿</div><div><p class="text-sm font-medium">Magnesium Glycinate</p><span class="text-xs text-text-muted">Calming & Sleep Support</span></div></div>
+    </div>
+    <div class="absolute bottom-32 left-10 glass p-4 rounded-2xl luxury-shadow animate-float hidden md:block" style="animation-delay: 3s;">
+      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-full bg-champagne/40 flex items-center justify-center">☀️</div><div><p class="text-sm font-medium">Vitamin D3 + K2</p><span class="text-xs text-text-muted">Immunity & Bone Health</span></div></div>
+    </div>
+  </header>
+
+  <!-- Symptom Support -->
+  <section id="symptoms" class="py-24 px-6 bg-cream/30">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <h3 class="font-serif text-3xl md:text-4xl mb-4">Symptom Support</h3>
+        <p class="text-text-muted max-w-xl mx-auto">Select your primary concern to receive pharmacy-backed recommendations.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="symptom-grid">
+        <div class="glass p-8 rounded-3xl luxury-shadow hover:-translate-y-2 transition cursor-pointer scroll-reveal" data-symptom="sleep">
+          <div class="w-12 h-12 bg-champagne/30 rounded-xl flex items-center justify-center text-xl mb-4">🌙</div>
+          <h4 class="font-serif text-xl mb-2">Sleep Support</h4><p class="text-sm text-text-muted mb-4">Restore your natural circadian rhythm.</p>
+          <div class="symptom-content hidden text-sm border-t border-sage/30 pt-4 mt-4"><p class="mb-2"><strong>Recommended:</strong> Magnesium Glycinate, L-Theanine</p><p class="text-xs text-text-muted">Take 60 mins before bed.</p></div>
+        </div>
+        <div class="glass p-8 rounded-3xl luxury-shadow hover:-translate-y-2 transition cursor-pointer scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="w-12 h-12 bg-sage/30 rounded-xl flex items-center justify-center text-xl mb-4">🍃</div>
+          <h4 class="font-serif text-xl mb-2">Stress Relief</h4><p class="text-sm text-text-muted mb-4">Calm the nervous system naturally.</p>
+          <div class="symptom-content hidden text-sm border-t border-sage/30 pt-4 mt-4"><p class="mb-2"><strong>Recommended:</strong> Ashwagandha KSM-66, Rhodiola</p><p class="text-xs text-text-muted">Pair with deep breathing.</p></div>
+        </div>
+        <div class="glass p-8 rounded-3xl luxury-shadow hover:-translate-y-2 transition cursor-pointer scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="w-12 h-12 bg-champagne/40 rounded-xl flex items-center justify-center text-xl mb-4">⚡</div>
+          <h4 class="font-serif text-xl mb-2">Energy Support</h4><p class="text-sm text-text-muted mb-4">Sustainable vitality without crashes.</p>
+          <div class="symptom-content hidden text-sm border-t border-sage/30 pt-4 mt-4"><p class="mb-2"><strong>Recommended:</strong> B-Complex, CoQ10</p><p class="text-xs text-text-muted">Take with morning meal.</p></div>
+        </div>
+        <div class="glass p-8 rounded-3xl luxury-shadow hover:-translate-y-2 transition cursor-pointer scroll-reveal" style="transition-delay: 0.3s;">
+          <div class="w-12 h-12 bg-sage/20 rounded-xl flex items-center justify-center text-xl mb-4">🛡️</div>
+          <h4 class="font-serif text-xl mb-2">Immunity</h4><p class="text-sm text-text-muted mb-4">Fortify your body's natural defenses.</p>
+          <div class="symptom-content hidden text-sm border-t border-sage/30 pt-4 mt-4"><p class="mb-2"><strong>Recommended:</strong> Vitamin C, Zinc Picolinate, D3</p><p class="text-xs text-text-muted">Consistent daily use yields best results.</p></div>
+        </div>
+        <div class="glass p-8 rounded-3xl luxury-shadow hover:-translate-y-2 transition cursor-pointer scroll-reveal md:col-span-2 lg:col-span-1" style="transition-delay: 0.4s;">
+          <div class="w-12 h-12 bg-champagne/30 rounded-xl flex items-center justify-center text-xl mb-4">🧠</div>
+          <h4 class="font-serif text-xl mb-2">Focus & Mind</h4><p class="text-sm text-text-muted mb-4">Enhance clarity and cognitive flow.</p>
+          <div class="symptom-content hidden text-sm border-t border-sage/30 pt-4 mt-4"><p class="mb-2"><strong>Recommended:</strong> Omega-3, Lion's Mane</p><p class="text-xs text-text-muted">Take with breakfast or pre-work.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ingredient Education -->
+  <section id="ingredients" class="py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <h3 class="font-serif text-3xl md:text-4xl mb-4">Ingredient Education</h3>
+        <p class="text-text-muted max-w-xl mx-auto">Pure, science-backed compounds curated for modern wellness.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white/60 p-6 rounded-2xl border border-white luxury-shadow hover:shadow-xl transition scroll-reveal">
+          <div class="flex justify-between items-start mb-4"><h4 class="font-serif text-xl">Magnesium</h4><span class="text-xs bg-sage/20 text-sage-dark px-2 py-1 rounded-full">Essential</span></div>
+          <p class="text-sm text-text-muted mb-4">Supports 300+ enzymatic reactions, muscle relaxation, and deep sleep.</p>
+          <ul class="text-xs space-y-2 text-text-muted"><li>✓ Glycinate: High bioavailability</li><li>✓ Threonate: Cognitive support</li><li>✓ Citrate: Gentle digestion</li></ul>
+        </div>
+        <div class="bg-white/60 p-6 rounded-2xl border border-white luxury-shadow hover:shadow-xl transition scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="flex justify-between items-start mb-4"><h4 class="font-serif text-xl">Vitamin D</h4><span class="text-xs bg-champagne/40 text-text-dark px-2 py-1 rounded-full">Sunshine</span></div>
+          <p class="text-sm text-text-muted mb-4">Immune modulation, bone density, and mood regulation.</p>
+          <ul class="text-xs space-y-2 text-text-muted"><li>✓ D3: Active form</li><li>✓ K2: Directs calcium</li><li>✓ 2000-5000 IU daily</li></ul>
+        </div>
+        <div class="bg-white/60 p-6 rounded-2xl border border-white luxury-shadow hover:shadow-xl transition scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="flex justify-between items-start mb-4"><h4 class="font-serif text-xl">Zinc</h4><span class="text-xs bg-sage/20 text-sage-dark px-2 py-1 rounded-full">Defense</span></div>
+          <p class="text-sm text-text-muted mb-4">Cellular repair, hormonal balance, and immune readiness.</p>
+          <ul class="text-xs space-y-2 text-text-muted"><li>✓ Picolinate: Optimal absorption</li><li>✓ 15-30 mg daily</li><li>✓ Best with food</li></ul>
+        </div>
+        <div class="bg-white/60 p-6 rounded-2xl border border-white luxury-shadow hover:shadow-xl transition scroll-reveal" style="transition-delay: 0.3s;">
+          <div class="flex justify-between items-start mb-4"><h4 class="font-serif text-xl">Omega-3</h4><span class="text-xs bg-champagne/40 text-text-dark px-2 py-1 rounded-full">Brain/Heart</span></div>
+          <p class="text-sm text-text-muted mb-4">Inflammation control, neural connectivity, and cardiovascular health.</p>
+          <ul class="text-xs space-y-2 text-text-muted"><li>✓ EPA/DHA: Active forms</li><li>✓ Triglyceride form</li><li>✓ Molecularly distilled</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wellness Routine Builder -->
+  <section id="routine" class="py-24 px-6 bg-cream/30">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12 scroll-reveal">
+        <h3 class="font-serif text-3xl md:text-4xl mb-4">Wellness Routine Builder</h3>
+        <p class="text-text-muted">Align your supplements with your natural circadian rhythm.</p>
+      </div>
+      <div class="flex justify-center gap-4 mb-8">
+        <button id="btn-morning" class="px-6 py-2 rounded-full bg-text-dark text-white text-sm font-medium transition">Morning Protocol</button>
+        <button id="btn-evening" class="px-6 py-2 rounded-full glass text-text-dark text-sm font-medium transition">Evening Protocol</button>
+      </div>
+      <div class="glass p-8 rounded-3xl luxury-shadow scroll-reveal">
+        <div id="moroutine" class="routine-content space-y-6">
+          <div class="flex items-center gap-4 p-4 bg-white/50 rounded-2xl"><div class="w-10 h-10 rounded-full bg-champagne/30 flex items-center justify-center">☕</div><div><h5 class="font-medium">Upon Waking</h5><p class="text-sm text-text-muted">Hydrate + B-Complex + Vitamin D3/K2</p></div></div>
+          <div class="flex items-center gap-4 p-4 bg-white/50 rounded-2xl"><div class="w-10 h-10 rounded-full bg-sage/20 flex items-center justify-center">🌞</div><div><h5 class="font-medium">Midday</h5><p class="text-sm text-text-muted">Omega-3 with lunch + Magnesium (if split dose)</p></div></div>
+        </div>
+        <div id="eveningroutine" class="routine-content hidden space-y-6">
+          <div class="flex items-center gap-4 p-4 bg-white/50 rounded-2xl"><div class="w-10 h-10 rounded-full bg-champagne/30 flex items-center justify-center">🌙</div><div><h5 class="font-medium">Post-Dinner</h5><p class="text-sm text-text-muted">Zinc + Ashwagandha</p></div></div>
+          <div class="flex items-center gap-4 p-4 bg-white/50 rounded-2xl"><div class="w-10 h-10 rounded-full bg-sage/20 flex items-center justify-center">🛏️</div><div><h5 class="font-medium">60 Mins Before Sleep</h5><p class="text-sm text-text-muted">Magnesium Glycinate + L-Theanine + Herbal Tea</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Digital Pharmacist Assistant -->
+  <section id="assistant" class="py-24 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="text-center mb-12 scroll-reveal">
+        <h3 class="font-serif text-3xl md:text-4xl mb-4">Digital Pharmacist Assistant</h3>
+        <p class="text-text-muted">Ask questions about interactions, dosing, and wellness protocols.</p>
+      </div>
+      <div class="glass p-6 rounded-3xl luxury-shadow h-[400px] flex flex-col scroll-reveal">
+        <div id="chat-messages" class="flex-1 overflow-y-auto space-y-4 pr-2 mb-4 chat-scroll">
+          <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-full bg-sage flex items-center justify-center text-white text-xs font-bold">V</div><div class="bg-white/70 p-4 rounded-2xl rounded-tl-none max-w-[80%] text-sm shadow-sm">Hello, I'm your Veloura Pharmacist Assistant. How can I support your wellness journey today?</div></div>
+          <div class="flex items-start gap-3 flex-row-reverse"><div class="bg-text-dark text-white p-4 rounded-2xl rounded-tr-none max-w-[80%] text-sm shadow-sm">Can I combine magnesium with vitamin D?</div></div>
+          <div class="flex items-start gap-3"><div class="w-8 h-8 rounded-full bg-sage flex items-center justify-center text-white text-xs font-bold">V</div><div class="bg-white/70 p-4 rounded-2xl rounded-tl-none max-w-[80%] text-sm shadow-sm">Yes, absolutely. Magnesium actually <strong>activates</strong> Vitamin D in the body. Taking them together is highly synergistic. Magnesium Glycinate in the evening supports relaxation, while D3 in the morning aligns with your circadian rhythm. Would you like dosing recommendations?</div></div>
+        </div>
+        <div class="flex gap-2 border-t border-white/50 pt-4">
+          <input type="text" id="chat-input" placeholder="Ask about supplements, interactions, or routines..." class="flex-1 bg-white/60 px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-sage/50">
+          <button id="send-btn" class="bg-sage hover:bg-sage-dark text-white px-5 py-3 rounded-xl text-sm font-medium transition">Send</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section id="products" class="py-24 px-6 bg-cream/30">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 scroll-reveal">
+        <h3 class="font-serif text-3xl md:text-4xl mb-4">Curated Collection</h3>
+        <p class="text-text-muted max-w-xl mx-auto">Pharmaceutical-grade formulations. Elegant packaging. Science-backed results.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white rounded-3xl overflow-hidden luxury-shadow hover:-translate-y-2 transition scroll-reveal">
+          <div class="h-48 bg-gradient-to-br from-pearl to-champagne/30 flex items-center justify-center text-4xl">💊</div>
+          <div class="p-6"><h4 class="font-serif text-lg mb-1">Veloura Sleep Complex</h4><p class="text-xs text-text-muted mb-3">Magnesium + L-Theanine</p><div class="flex justify-between items-center"><span class="font-semibold">$38.00</span><button class="bg-text-dark text-white px-4 py-2 rounded-full text-xs hover:bg-black transition">Add to Cart</button></div></div>
+        </div>
+        <div class="bg-white rounded-3xl overflow-hidden luxury-shadow hover:-translate-y-2 transition scroll-reveal" style="transition-delay: 0.1s;">
+          <div class="h-48 bg-gradient-to-br from-sage/20 to-champagne/40 flex items-center justify-center text-4xl">🌿</div>
+          <div class="p-6"><h4 class="font-serif text-lg mb-1">Daily Defense D3+K2</h4><p class="text-xs text-text-muted mb-3">Vitamin D3 5000IU + K2</p><div class="flex justify-between items-center"><span class="font-semibold">$29.00</span><button class="bg-text-dark text-white px-4 py-2 rounded-full text-xs hover:bg-black transition">Add to Cart</button></div></div>
+        </div>
+        <div class="bg-white rounded-3xl overflow-hidden luxury-shadow hover:-translate-y-2 transition scroll-reveal" style="transition-delay: 0.2s;">
+          <div class="h-48 bg-gradient-to-br from-pearl to-sage/20 flex items-center justify-center text-4xl">🧴</div>
+          <div class="p-6"><h4 class="font-serif text-lg mb-1">Skin & Barrier Oil</h4><p class="text-xs text-text-muted mb-3">Omega-3, Squalane, Vit E</p><div class="flex justify-between items-center"><span class="font-semibold">$45.00</span><button class="bg-text-dark text-white px-4 py-2 rounded-full text-xs hover:bg-black transition">Add to Cart</button></div></div>
+        </div>
+        <div class="bg-white rounded-3xl overflow-hidden luxury-shadow hover:-translate-y-2 transition scroll-reveal" style="transition-delay: 0.3s;">
+          <div class="h-48 bg-gradient-to-br from-champagne/30 to-pearl flex items-center justify-center text-4xl">☕</div>
+          <div class="p-6"><h4 class="font-serif text-lg mb-1">Focus & Flow Blend</h4><p class="text-xs text-text-muted mb-3">Lion's Mane, B-Complex</p><div class="flex justify-between items-center"><span class="font-semibold">$42.00</span><button class="bg-text-dark text-white px-4 py-2 rounded-full text-xs hover:bg-black transition">Add to Cart</button></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-24 px-6 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-sage/10 via-champagne/10 to-pearl/30 pointer-events-none"></div>
+    <div class="max-w-3xl mx-auto text-center relative z-10 scroll-reveal">
+      <h3 class="font-serif text-3xl md:text-4xl mb-4">The Veloura Journal</h3>
+      <p class="text-text-muted mb-8 max-w-lg mx-auto">Monthly wellness insights, pharmacist-approved protocols, and early access to new formulations.</p>
+      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault(); this.innerHTML='<p class=\'text-sage-dark font-medium\'>Welcome to the inner circle.</p>'">
+        <input type="email" placeholder="Your email address" required class="flex-1 bg-white/70 px-5 py-4 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-sage/50 shadow-sm">
+        <button type="submit" class="bg-text-dark text-white px-8 py-4 rounded-full text-sm font-medium hover:bg-black transition luxury-shadow">Subscribe</button>
+      </form>
+      <p class="text-xs text-text-muted mt-4">No spam. Unsubscribe anytime. We respect your privacy.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-pearl/50 py-16 px-6 border-t border-white/40">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
+      <div><h4 class="font-serif text-xl mb-4">Veloura <span class="text-sage-dark">Health</span></h4><p class="text-text-muted max-w-xs">Luxury wellness guided by modern pharmacy. Science-backed. Elegantly delivered.</p></div>
+      <div><h5 class="font-medium mb-4">Shop</h5><ul class="space-y-2 text-text-muted"><li><a href="#" class="hover:text-text-dark transition">Sleep & Recovery</a></li><li><a href="#" class="hover:text-text-dark transition">Immunity & Defense</a></li><li><a href="#" class="hover:text-text-dark transition">Focus & Mind</a></li><li><a href="#" class="hover:text-text-dark transition">Skin & Beauty</a></li></ul></div>
+      <div><h5 class="font-medium mb-4">Learn</h5><ul class="space-y-2 text-text-muted"><li><a href="#" class="hover:text-text-dark transition">Ingredient Glossary</a></li><li><a href="#" class="hover:text-text-dark transition">Wellness Protocols</a></li><li><a href="#" class="hover:text-text-dark transition">Pharmacist Blog</a></li><li><a href="#" class="hover:text-text-dark transition">FAQs</a></li></ul></div>
+      <div><h5 class="font-medium mb-4">Support</h5><ul class="space-y-2 text-text-muted"><li><a href="#" class="hover:text-text-dark transition">Contact Care Team</a></li><li><a href="#" class="hover:text-text-dark transition">Shipping & Returns</a></li><li><a href="#" class="hover:text-text-dark transition">Privacy Policy</a></li></ul></div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-12 pt-8 border-t border-sage/20 text-center text-xs text-text-muted">© 2026 Veloura Health. All rights reserved. This website is for educational purposes and does not replace professional medical advice.</div>
+  </footer>
+
+  <script>
+    // Scroll Reveal
+    const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }); }, { threshold: 0.1 });
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+    // Symptom Cards Toggle
+    document.querySelectorAll('[data-symptom]').forEach(card => {
+      card.addEventListener('click', () => {
+        const content = card.querySelector('.symptom-content');
+        content.classList.toggle('hidden');
+        card.classList.toggle('border-sage');
+      });
+    });
+
+    // Routine Builder Toggle
+    const btnM = document.getElementById('btn-morning'), btnE = document.getElementById('btn-evening');
+    const mRoutine = document.getElementById('moroutine'), eRoutine = document.getElementById('eveningroutine');
+    const toggleRoutine = (isMorning) => {
+      if(isMorning) { mRoutine.classList.remove('hidden'); eRoutine.classList.add('hidden'); btnM.classList.replace('glass','bg-text-dark'); btnM.classList.replace('text-text-dark','text-white'); btnE.classList.replace('bg-text-dark','glass'); btnE.classList.replace('text-white','text-text-dark'); }
+      else { eRoutine.classList.remove('hidden'); mRoutine.classList.add('hidden'); btnE.classList.replace('glass','bg-text-dark'); btnE.classList.replace('text-text-dark','text-white'); btnM.classList.replace('bg-text-dark','glass'); btnM.classList.replace('text-white','text-text-dark'); }
+    };
+    btnM.addEventListener('click', () => toggleRoutine(true));
+    btnE.addEventListener('click', () => toggleRoutine(false));
+
+    // Chat Simulation
+    const chatInput = document.getElementById('chat-input'), sendBtn = document.getElementById('send-btn'), chatMessages = document.getElementById('chat-messages');
+    const addMessage = (text, isUser = false) => {
+      const div = document.createElement('div');
+      div.className = `flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''} animate-fadeInUp`;
+      div.innerHTML = `
+        ${!isUser ? '<div class="w-8 h-8 rounded-full bg-sage flex items-center justify-center text-white text-xs font-bold shrink-0">V</div>' : ''}
+        <div class="${isUser ? 'bg-text-dark text-white rounded-tr-none' : 'bg-white/70 rounded-tl-none'} p-4 rounded-2xl max-w-[80%] text-sm shadow-sm">${text}</div>
+      `;
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+    const handleSend = () => {
+      const val = chatInput.value.trim(); if(!val) return;
+      addMessage(val, true); chatInput.value = '';
+      setTimeout(() => {
+        const res = ["Great question. Always space supplements by 2-3 hours when possible for optimal absorption.", "I recommend starting with a lower dose and tracking your response for 14 days.", "Consulting your physician is always wise, but this combination is generally well-tolerated.", "Veloura formulations use bioavailable forms to minimize gastrointestinal discomfort."];
+        addMessage(res[Math.floor(Math.random() * res.length)], false);
+      }, 800);
+    };
+    sendBtn.addEventListener('click', handleSend);
+    chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleSend(); });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => anchor.addEventListener('click', function(e) { e.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }); }));
+  </script>
+</body>
+</html>
