@@ -31,6 +31,35 @@
     .lang-btn.active { background: #0EA5E9; color: white; }
     @keyframes pulse-slow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
     .pulse-med { animation: pulse-slow 4s ease-in-out infinite; }
+    
+    /* Dropdown animations */
+    .dropdown-menu {
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.2s ease;
+      pointer-events: none;
+    }
+    .dropdown-menu.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    
+    /* Modal animations */
+    .modal-backdrop {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .modal-backdrop.show {
+      opacity: 1;
+    }
+    .modal-content {
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+    .modal-content.show {
+      transform: scale(1);
+    }
   </style>
 </head>
 <body class="font-sans text-slate-200 grid-bg min-h-screen">
@@ -55,7 +84,7 @@
           <button class="lang-btn px-3 py-1.5 rounded-full text-slate-400 hover:text-white transition" data-lang="ru">RU</button>
           <button class="lang-btn px-3 py-1.5 rounded-full text-slate-400 hover:text-white transition" data-lang="hy">AM</button>
         </div>
-        <button class="hidden md:block bg-medical-accent hover:bg-cyan-500 text-white px-5 py-2 rounded-full text-sm font-medium transition glow-accent" data-i18n="nav_cta">Start Assessment</button>
+        <button id="nav-assessment-btn" class="hidden md:block bg-medical-accent hover:bg-cyan-500 text-white px-5 py-2 rounded-full text-sm font-medium transition glow-accent" data-i18n="nav_cta">Start Assessment</button>
       </div>
     </div>
   </nav>
@@ -74,9 +103,86 @@
         <span class="text-gradient-med" data-i18n="hero_title2">Wellness Protocols</span>
       </h2>
       <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light" data-i18n="hero_desc">Evidence-based supplementation, pharmaceutical guidance, and precision wellness tracking in a unified clinical interface.</p>
+      
+      <!-- Buttons with Dropdowns -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <button class="bg-medical-accent text-white px-8 py-4 rounded-full font-medium hover:bg-cyan-500 transition glow-accent" data-i18n="hero_cta1">Begin Protocol</button>
-        <button class="glass-dark px-8 py-4 rounded-full font-medium hover:bg-slate-800/60 transition" data-i18n="hero_cta2">View Formulations</button>
+        <!-- Begin Protocol Dropdown -->
+        <div class="relative inline-block">
+          <button id="btn-begin" class="bg-medical-accent text-white px-8 py-4 rounded-full font-medium hover:bg-cyan-500 transition glow-accent flex items-center gap-2">
+            <span data-i18n="hero_cta1">Begin Protocol</span>
+            <svg class="w-4 h-4 transition-transform" id="begin-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div id="begin-dropdown" class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-50">
+            <div class="p-2">
+              <a href="#routine" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1" data-i18n="dd_circadian">
+                <div class="flex items-center gap-3">
+                  <span class="text-lg">🌅</span>
+                  <div>
+                    <div class="font-medium text-slate-200">Circadian Protocol</div>
+                    <div class="text-xs text-slate-400" data-i18n="dd_circadian_desc">Morning & evening routines</div>
+                  </div>
+                </div>
+              </a>
+              <a href="#symptoms" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1" data-i18n="dd_symptom">
+                <div class="flex items-center gap-3">
+                  <span class="text-lg">🎯</span>
+                  <div>
+                    <div class="font-medium text-slate-200">Symptom-Based</div>
+                    <div class="text-xs text-slate-400" data-i18n="dd_symptom_desc">Target your concerns</div>
+                  </div>
+                </div>
+              </a>
+              <a href="#assistant" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition" data-i18n="dd_ai">
+                <div class="flex items-center gap-3">
+                  <span class="text-lg">🤖</span>
+                  <div>
+                    <div class="font-medium text-slate-200">AI Pharmacist</div>
+                    <div class="text-xs text-slate-400" data-i18n="dd_ai_desc">Get personalized advice</div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- View Formulations Dropdown -->
+        <div class="relative inline-block">
+          <button id="btn-formulations" class="glass-dark px-8 py-4 rounded-full font-medium hover:bg-slate-800/60 transition flex items-center gap-2">
+            <span data-i18n="hero_cta2">View Formulations</span>
+            <svg class="w-4 h-4 transition-transform" id="formulations-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div id="formulations-dropdown" class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-50">
+            <div class="p-2">
+              <a href="#products" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1" data-i18n="dd_all">
+                <div class="flex items-center gap-3">
+                  <span class="text-lg">💊</span>
+                  <div>
+                    <div class="font-medium text-slate-200" data-i18n="dd_all_prod">All Products</div>
+                    <div class="text-xs text-slate-400" data-i18n="dd_all_prod_desc">Browse full catalog</div>
+                  </div>
+                </div>
+              </a>
+              <a href="#ingredients" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1" data-i18n="dd_ingredients">
+                <div class="flex items-center gap-3">
+                  <span class="text-lg">🔬</span>
+                  <div>
+                    <div class="font-medium text-slate-200" data-i18n="dd_science">Science</div>
+                    <div class="text-xs text-slate-400" data-i18n="dd_science_desc">Clinical ingredients</div>
+                  </div>
+                </div>
+              </a>
+              <button onclick="openAssessmentModal()" class="dropdown-item w-full text-left px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition" data-i18n="dd_assessment">
+                <div class="flex items-center gap-3">
+                  <span class="text-lg">📋</span>
+                  <div>
+                    <div class="font-medium text-slate-200" data-i18n="dd_take">Take Assessment</div>
+                    <div class="text-xs text-slate-400" data-i18n="dd_take_desc">Get recommendations</div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -89,49 +195,54 @@
         <p class="text-slate-400 max-w-xl mx-auto" data-i18n="symptoms_desc">Select your primary concern to receive clinically-backed recommendations.</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal" data-symptom="sleep">
+        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal border border-transparent hover:border-medical-accent/30" data-symptom="sleep">
           <div class="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center text-xl mb-4">🌙</div>
           <h4 class="font-mono text-lg mb-2" data-i18n="sym_sleep">Sleep Optimization</h4>
           <p class="text-sm text-slate-400 mb-4" data-i18n="sym_sleep_desc">Restore circadian alignment and deepen REM cycles.</p>
           <div class="symptom-content hidden text-sm border-t border-slate-700/50 pt-4 mt-4 space-y-2">
             <p class="text-medical-accent">Recommended: Magnesium Bisglycinate, L-Theanine</p>
             <p class="text-xs text-slate-500">Administration: 60 mins pre-sleep</p>
+            <button class="mt-3 w-full bg-medical-accent/20 hover:bg-medical-accent/30 text-medical-accent py-2 rounded-lg text-xs font-medium transition" data-i18n="btn_add">Add to Protocol</button>
           </div>
         </div>
-        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal" style="transition-delay:0.1s;">
+        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal border border-transparent hover:border-medical-accent/30" style="transition-delay:0.1s;" data-symptom="stress">
           <div class="w-10 h-10 bg-rose-500/20 rounded-lg flex items-center justify-center text-xl mb-4">🍃</div>
           <h4 class="font-mono text-lg mb-2" data-i18n="sym_stress">Stress Modulation</h4>
           <p class="text-sm text-slate-400 mb-4" data-i18n="sym_stress_desc">Regulate cortisol and support HPA axis function.</p>
           <div class="symptom-content hidden text-sm border-t border-slate-700/50 pt-4 mt-4 space-y-2">
             <p class="text-medical-accent">Recommended: Ashwagandha KSM-66, Rhodiola Rosea</p>
             <p class="text-xs text-slate-500">Administration: Morning or early afternoon</p>
+            <button class="mt-3 w-full bg-medical-accent/20 hover:bg-medical-accent/30 text-medical-accent py-2 rounded-lg text-xs font-medium transition" data-i18n="btn_add">Add to Protocol</button>
           </div>
         </div>
-        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal" style="transition-delay:0.2s;">
+        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal border border-transparent hover:border-medical-accent/30" style="transition-delay:0.2s;" data-symptom="energy">
           <div class="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center text-xl mb-4">⚡</div>
           <h4 class="font-mono text-lg mb-2" data-i18n="sym_energy">Sustained Energy</h4>
           <p class="text-sm text-slate-400 mb-4" data-i18n="sym_energy_desc">Mitigate fatigue without CNS overstimulation.</p>
           <div class="symptom-content hidden text-sm border-t border-slate-700/50 pt-4 mt-4 space-y-2">
             <p class="text-medical-accent">Recommended: B-Complex (Methylated), CoQ10 Ubiquinol</p>
             <p class="text-xs text-slate-500">Administration: With first meal</p>
+            <button class="mt-3 w-full bg-medical-accent/20 hover:bg-medical-accent/30 text-medical-accent py-2 rounded-lg text-xs font-medium transition" data-i18n="btn_add">Add to Protocol</button>
           </div>
         </div>
-        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal" style="transition-delay:0.3s;">
+        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal border border-transparent hover:border-medical-accent/30" style="transition-delay:0.3s;" data-symptom="immunity">
           <div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center text-xl mb-4">🛡️</div>
           <h4 class="font-mono text-lg mb-2" data-i18n="sym_immunity">Immune Readiness</h4>
           <p class="text-sm text-slate-400 mb-4" data-i18n="sym_immunity_desc">Optimize innate and adaptive immune response.</p>
           <div class="symptom-content hidden text-sm border-t border-slate-700/50 pt-4 mt-4 space-y-2">
             <p class="text-medical-accent">Recommended: Vitamin C (Liposomal), Zinc Picolinate, D3</p>
             <p class="text-xs text-slate-500">Administration: Daily, consistent dosing</p>
+            <button class="mt-3 w-full bg-medical-accent/20 hover:bg-medical-accent/30 text-medical-accent py-2 rounded-lg text-xs font-medium transition" data-i18n="btn_add">Add to Protocol</button>
           </div>
         </div>
-        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal md:col-span-2 lg:col-span-1" style="transition-delay:0.4s;">
+        <div class="glass-dark p-6 rounded-2xl hover:-translate-y-1 transition cursor-pointer scroll-reveal border border-transparent hover:border-medical-accent/30 md:col-span-2 lg:col-span-1" style="transition-delay:0.4s;" data-symptom="focus">
           <div class="w-10 h-10 bg-violet-500/20 rounded-lg flex items-center justify-center text-xl mb-4">🧠</div>
           <h4 class="font-mono text-lg mb-2" data-i18n="sym_focus">Cognitive Clarity</h4>
           <p class="text-sm text-slate-400 mb-4" data-i18n="sym_focus_desc">Enhance neuroplasticity and working memory.</p>
           <div class="symptom-content hidden text-sm border-t border-slate-700/50 pt-4 mt-4 space-y-2">
             <p class="text-medical-accent">Recommended: Omega-3 (High EPA), Lion's Mane Extract</p>
             <p class="text-xs text-slate-500">Administration: Pre-work or with breakfast</p>
+            <button class="mt-3 w-full bg-medical-accent/20 hover:bg-medical-accent/30 text-medical-accent py-2 rounded-lg text-xs font-medium transition" data-i18n="btn_add">Add to Protocol</button>
           </div>
         </div>
       </div>
@@ -221,17 +332,6 @@
               <span data-i18n="chat_welcome">Hello. I'm your clinical wellness assistant. How can I optimize your supplementation today?</span>
             </div>
           </div>
-          <div class="flex items-start gap-3 flex-row-reverse">
-            <div class="bg-medical-accent/20 text-slate-100 p-4 rounded-2xl rounded-tr-none max-w-[85%] text-sm border border-medical-accent/30">
-              <span data-i18n="chat_q1">Can I combine magnesium with vitamin D?</span>
-            </div>
-          </div>
-          <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-full bg-medical-accent/20 flex items-center justify-center text-medical-accent text-xs font-bold">+</div>
-            <div class="bg-slate-800/60 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-sm border border-slate-700/50">
-              <span data-i18n="chat_a1">Yes. Magnesium is a required cofactor for Vitamin D metabolism. Taking them together enhances bioavailability. D3 in the AM, Magnesium Glycinate in the PM is clinically optimal. Would you like precise dosing parameters?</span>
-            </div>
-          </div>
         </div>
         <div class="flex gap-2 border-t border-slate-700/50 pt-4">
           <input type="text" id="chat-input" data-i18n-placeholder="chat_placeholder" placeholder="Ask about interactions, dosing, or protocols..." class="flex-1 bg-slate-800/60 border border-slate-700/50 px-4 py-3 rounded-xl text-sm focus:border-medical-accent transition">
@@ -251,19 +351,19 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-medical-accent/40 transition scroll-reveal">
           <div class="h-44 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-3xl">💊</div>
-          <div class="p-5"><h4 class="font-mono text-lg mb-1">Sleep Matrix</h4><p class="text-xs text-slate-400 mb-3">Magnesium Bisglycinate + L-Theanine</p><div class="flex justify-between items-center"><span class="font-semibold text-medical-accent">$38.00</span><button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-xs font-medium transition" data-i18n="prod_btn">Add to Protocol</button></div></div>
+          <div class="p-5"><h4 class="font-mono text-lg mb-1">Sleep Matrix</h4><p class="text-xs text-slate-400 mb-3">Magnesium Bisglycinate + L-Theanine</p><div class="flex justify-between items-center"><span class="font-semibold text-medical-accent">$38.00</span><button class="add-to-cart bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-xs font-medium transition" data-i18n="prod_btn">Add to Protocol</button></div></div>
         </div>
         <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-medical-accent/40 transition scroll-reveal" style="transition-delay:0.1s;">
           <div class="h-44 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-3xl">🌿</div>
-          <div class="p-5"><h4 class="font-mono text-lg mb-1">D3+K2 Complex</h4><p class="text-xs text-slate-400 mb-3">5000 IU Cholecalciferol + MK-7</p><div class="flex justify-between items-center"><span class="font-semibold text-medical-accent">$29.00</span><button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-xs font-medium transition" data-i18n="prod_btn">Add to Protocol</button></div></div>
+          <div class="p-5"><h4 class="font-mono text-lg mb-1">D3+K2 Complex</h4><p class="text-xs text-slate-400 mb-3">5000 IU Cholecalciferol + MK-7</p><div class="flex justify-between items-center"><span class="font-semibold text-medical-accent">$29.00</span><button class="add-to-cart bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-xs font-medium transition" data-i18n="prod_btn">Add to Protocol</button></div></div>
         </div>
         <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-medical-accent/40 transition scroll-reveal" style="transition-delay:0.2s;">
           <div class="h-44 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-3xl">🧴</div>
-          <div class="p-5"><h4 class="font-mono text-lg mb-1">Dermal Lipid Serum</h4><p class="text-xs text-slate-400 mb-3">Omega-3, Squalane, Vitamin E</p><div class="flex justify-between items-center"><span class="font-semibold text-medical-accent">$45.00</span><button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-xs font-medium transition" data-i18n="prod_btn">Add to Protocol</button></div></div>
+          <div class="p-5"><h4 class="font-mono text-lg mb-1">Dermal Lipid Serum</h4><p class="text-xs text-slate-400 mb-3">Omega-3, Squalane, Vitamin E</p><div class="flex justify-between items-center"><span class="font-semibold text-medical-accent">$45.00</span><button class="add-to-cart bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-xs font-medium transition" data-i18n="prod_btn">Add to Protocol</button></div></div>
         </div>
         <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-medical-accent/40 transition scroll-reveal" style="transition-delay:0.3s;">
           <div class="h-44 bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center text-3xl">☕</div>
-          <div class="p-5"><h4 class="font-mono text-lg mb-1">NeuroFlow Nootropic</h4><p class="text-xs text-slate-400 mb-3">Lion's Mane, B-Vitamins, Citicoline</p><div class="flex justify-between items-center"><span class="font-semibold text-medical-accent">$42.00</span><button class="bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-xs font-medium transition" data-i18n="prod_btn">Add to Protocol</button></div></div>
+          <div class="p-5"><h4 class="font-mono text-lg mb-1">NeuroFlow Nootropic</h4><p class="text-xs text-slate-400 mb-3">Lion's Mane, B-Vitamins, Citicoline</p><div class="flex justify-between items-center"><span class="font-semibold text-medical-accent">$42.00</span><button class="add-to-cart bg-slate-700 hover:bg-slate-600 text-white px-4 py-2 rounded-lg text-xs font-medium transition" data-i18n="prod_btn">Add to Protocol</button></div></div>
         </div>
       </div>
     </div>
@@ -275,8 +375,8 @@
     <div class="max-w-3xl mx-auto text-center relative z-10 scroll-reveal">
       <h3 class="font-mono text-3xl md:text-4xl mb-4" data-i18n="news_title">Clinical Briefings</h3>
       <p class="text-slate-400 mb-8 max-w-lg mx-auto" data-i18n="news_desc">Monthly pharmacological insights, protocol updates, and formulary releases.</p>
-      <form class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto" onsubmit="event.preventDefault(); this.innerHTML='<p class=\'text-medical-accent font-medium text-lg\'>Subscribed to clinical updates.</p>'">
-        <input type="email" placeholder="Email address" required class="flex-1 bg-slate-800/60 border border-slate-700/50 px-5 py-4 rounded-xl text-sm focus:border-medical-accent transition">
+      <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+        <input type="email" id="newsletter-email" placeholder="Email address" required class="flex-1 bg-slate-800/60 border border-slate-700/50 px-5 py-4 rounded-xl text-sm focus:border-medical-accent transition">
         <button type="submit" class="bg-medical-accent text-white px-8 py-4 rounded-xl text-sm font-medium hover:bg-cyan-500 transition glow-accent" data-i18n="news_btn">Subscribe</button>
       </form>
       <p class="text-xs text-slate-500 mt-4" data-i18n="news_privacy">No spam. Unsubscribe anytime. HIPAA-compliant data handling.</p>
@@ -287,12 +387,63 @@
   <footer class="bg-slate-950 py-16 px-6 border-t border-slate-800/50">
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm">
       <div><h4 class="font-mono text-xl mb-4">Veloura <span class="text-medical-accent">Health</span></h4><p class="text-slate-400 max-w-xs" data-i18n="footer_desc">Clinical wellness guided by modern pharmacology. Science-backed. Precisely delivered.</p></div>
-      <div><h5 class="font-medium mb-4 text-slate-200" data-i18n="footer_col1">Formulary</h5><ul class="space-y-2 text-slate-400"><li><a href="#" class="hover:text-medical-accent transition">Sleep & Recovery</a></li><li><a href="#" class="hover:text-medical-accent transition">Immune Defense</a></li><li><a href="#" class="hover:text-medical-accent transition">Cognitive Support</a></li><li><a href="#" class="hover:text-medical-accent transition">Dermal Nutrition</a></li></ul></div>
-      <div><h5 class="font-medium mb-4 text-slate-200" data-i18n="footer_col2">Clinical</h5><ul class="space-y-2 text-slate-400"><li><a href="#" class="hover:text-medical-accent transition">Ingredient Monographs</a></li><li><a href="#" class="hover:text-medical-accent transition">Protocol Library</a></li><li><a href="#" class="hover:text-medical-accent transition">Pharmacologist Blog</a></li><li><a href="#" class="hover:text-medical-accent transition">FAQs</a></li></ul></div>
+      <div><h5 class="font-medium mb-4 text-slate-200" data-i18n="footer_col1">Formulary</h5><ul class="space-y-2 text-slate-400"><li><a href="#symptoms" class="hover:text-medical-accent transition">Sleep & Recovery</a></li><li><a href="#symptoms" class="hover:text-medical-accent transition">Immune Defense</a></li><li><a href="#symptoms" class="hover:text-medical-accent transition">Cognitive Support</a></li><li><a href="#products" class="hover:text-medical-accent transition">Dermal Nutrition</a></li></ul></div>
+      <div><h5 class="font-medium mb-4 text-slate-200" data-i18n="footer_col2">Clinical</h5><ul class="space-y-2 text-slate-400"><li><a href="#ingredients" class="hover:text-medical-accent transition">Ingredient Monographs</a></li><li><a href="#routine" class="hover:text-medical-accent transition">Protocol Library</a></li><li><a href="#assistant" class="hover:text-medical-accent transition">Pharmacologist Blog</a></li><li><a href="#" class="hover:text-medical-accent transition">FAQs</a></li></ul></div>
       <div><h5 class="font-medium mb-4 text-slate-200" data-i18n="footer_col3">Support</h5><ul class="space-y-2 text-slate-400"><li><a href="#" class="hover:text-medical-accent transition">Contact Clinical Team</a></li><li><a href="#" class="hover:text-medical-accent transition">Shipping & Compliance</a></li><li><a href="#" class="hover:text-medical-accent transition">Privacy & HIPAA</a></li></ul></div>
     </div>
     <div class="max-w-6xl mx-auto mt-12 pt-8 border-t border-slate-800/50 text-center text-xs text-slate-500" data-i18n="footer_copy">© 2026 Veloura Health. All rights reserved. Educational purposes only. Not a substitute for professional medical advice.</div>
   </footer>
+
+  <!-- Assessment Modal -->
+  <div id="assessment-modal" class="fixed inset-0 z-[100] hidden">
+    <div class="modal-backdrop absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeAssessmentModal()"></div>
+    <div class="modal-content absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-2xl glass-dark p-8 rounded-2xl border border-slate-700/50 glow-accent max-h-[90vh] overflow-y-auto">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="font-mono text-2xl text-medical-accent" data-i18n="modal_assessment_title">Wellness Assessment</h3>
+        <button onclick="closeAssessmentModal()" class="text-slate-400 hover:text-white text-2xl transition">&times;</button>
+      </div>
+      <form id="assessment-form" class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="modal_name">Full Name</label>
+          <input type="text" required class="w-full bg-slate-800/60 border border-slate-700/50 px-4 py-3 rounded-xl text-sm focus:border-medical-accent transition">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-300 mb-2" data-i18n="modal_email">Email Address</label>
+          <input type="email" required class="w-full bg-slate-800/60 border border-slate-700/50 px-4 py-3 rounded-xl text-sm focus:border-medical-accent transition">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-slate-300 mb-3" data-i18n="modal_primary">Primary Concern</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 border border-slate-700/50 cursor-pointer hover:border-medical-accent/50 transition">
+              <input type="radio" name="concern" value="sleep" class="text-medical-accent focus:ring-medical-accent">
+              <span class="text-sm" data-i18n="sym_sleep">Sleep Optimization</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 border border-slate-700/50 cursor-pointer hover:border-medical-accent/50 transition">
+              <input type="radio" name="concern" value="stress" class="text-medical-accent focus:ring-medical-accent">
+              <span class="text-sm" data-i18n="sym_stress">Stress Modulation</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 border border-slate-700/50 cursor-pointer hover:border-medical-accent/50 transition">
+              <input type="radio" name="concern" value="energy" class="text-medical-accent focus:ring-medical-accent">
+              <span class="text-sm" data-i18n="sym_energy">Sustained Energy</span>
+            </label>
+            <label class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/40 border border-slate-700/50 cursor-pointer hover:border-medical-accent/50 transition">
+              <input type="radio" name="concern" value="immunity" class="text-medical-accent focus:ring-medical-accent">
+              <span class="text-sm" data-i18n="sym_immunity">Immune Readiness</span>
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-medical-accent hover:bg-cyan-500 text-white py-4 rounded-xl font-medium transition glow-accent" data-i18n="modal_submit">Get Personalized Protocol</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 glass-dark px-6 py-4 rounded-xl border border-medical-accent/30 glow-accent transform translate-y-24 transition-transform duration-300 z-[110]">
+    <div class="flex items-center gap-3">
+      <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400">✓</div>
+      <p id="toast-message" class="text-sm font-medium">Item added to protocol</p>
+    </div>
+  </div>
 
   <script>
     // Translation Dictionary
@@ -301,10 +452,20 @@
         nav_symptoms: "Symptoms", nav_ingredients: "Ingredients", nav_routines: "Routines", nav_assistant: "Pharmacist AI", nav_shop: "Shop", nav_cta: "Start Assessment",
         hero_tag: "Digital Pharmacist Assistant", hero_title1: "Clinical-Grade", hero_title2: "Wellness Protocols", hero_desc: "Evidence-based supplementation, pharmaceutical guidance, and precision wellness tracking in a unified clinical interface.",
         hero_cta1: "Begin Protocol", hero_cta2: "View Formulations",
+        
+        // New dropdown translations
+        dd_circadian: "Circadian Protocol", dd_circadian_desc: "Morning & evening routines",
+        dd_symptom: "Symptom-Based", dd_symptom_desc: "Target your concerns",
+        dd_ai: "AI Pharmacist", dd_ai_desc: "Get personalized advice",
+        dd_all: "All Products", dd_all_prod: "All Products", dd_all_prod_desc: "Browse full catalog",
+        dd_ingredients: "Science", dd_science: "Science", dd_science_desc: "Clinical ingredients",
+        dd_assessment: "Take Assessment", dd_take: "Take Assessment", dd_take_desc: "Get recommendations",
+        
         symptoms_title: "Symptom Support", symptoms_desc: "Select your primary concern to receive clinically-backed recommendations.",
         sym_sleep: "Sleep Optimization", sym_sleep_desc: "Restore circadian alignment and deepen REM cycles.", sym_stress: "Stress Modulation", sym_stress_desc: "Regulate cortisol and support HPA axis function.",
         sym_energy: "Sustained Energy", sym_energy_desc: "Mitigate fatigue without CNS overstimulation.", sym_immunity: "Immune Readiness", sym_immunity_desc: "Optimize innate and adaptive immune response.",
         sym_focus: "Cognitive Clarity", sym_focus_desc: "Enhance neuroplasticity and working memory.",
+        btn_add: "Add to Protocol",
         ing_title: "Clinical Ingredients", ing_desc: "Pharmaceutical-grade compounds with verified bioavailability.",
         ing_mag_desc: "Supports 300+ enzymatic pathways, neuromuscular relaxation, and sleep architecture.",
         ing_d3_desc: "Immune modulation, calcium homeostasis, and neurosteroid regulation.",
@@ -318,23 +479,44 @@
         routine_e2_title: "60 Mins Pre-Sleep", routine_e2_desc: "Magnesium Glycinate + L-Theanine + Valerian",
         chat_title: "Pharmacist AI Interface", chat_desc: "Query interactions, dosing parameters, and clinical protocols.",
         chat_welcome: "Hello. I'm your clinical wellness assistant. How can I optimize your supplementation today?",
-        chat_q1: "Can I combine magnesium with vitamin D?", chat_a1: "Yes. Magnesium is a required cofactor for Vitamin D metabolism. Taking them together enhances bioavailability. D3 in the AM, Magnesium Glycinate in the PM is clinically optimal. Would you like precise dosing parameters?",
         chat_placeholder: "Ask about interactions, dosing, or protocols...", chat_send: "Send",
         prod_title: "Clinical Formulations", prod_desc: "GMP-certified. Third-party tested. Bioavailable delivery systems.",
         prod_btn: "Add to Protocol",
         news_title: "Clinical Briefings", news_desc: "Monthly pharmacological insights, protocol updates, and formulary releases.", news_btn: "Subscribe", news_privacy: "No spam. Unsubscribe anytime. HIPAA-compliant data handling.",
         footer_desc: "Clinical wellness guided by modern pharmacology. Science-backed. Precisely delivered.",
         footer_col1: "Formulary", footer_col2: "Clinical", footer_col3: "Support",
-        footer_copy: "© 2026 Veloura Health. All rights reserved. Educational purposes only. Not a substitute for professional medical advice."
+        footer_copy: "© 2026 Veloura Health. All rights reserved. Educational purposes only. Not a substitute for professional medical advice.",
+        
+        // Modal translations
+        modal_assessment_title: "Wellness Assessment",
+        modal_name: "Full Name",
+        modal_email: "Email Address",
+        modal_primary: "Primary Concern",
+        modal_submit: "Get Personalized Protocol",
+        
+        // Toast messages
+        toast_added: "Added to your protocol",
+        toast_subscribed: "Successfully subscribed",
+        toast_assessment: "Assessment submitted successfully"
       },
       ru: {
         nav_symptoms: "Симптомы", nav_ingredients: "Ингредиенты", nav_routines: "Протоколы", nav_assistant: "Фармацевт ИИ", nav_shop: "Магазин", nav_cta: "Начать оценку",
         hero_tag: "Цифровой фармацевтический помощник", hero_title1: "Клинические", hero_title2: "Велнес-протоколы", hero_desc: "Научно обоснованные добавки, фармацевтическое сопровождение и точный трекинг здоровья в едином клиническом интерфейсе.",
         hero_cta1: "Начать протокол", hero_cta2: "Составы",
+        
+        // New dropdown translations
+        dd_circadian: "Циркадный протокол", dd_circadian_desc: "Утренние и вечерние рутины",
+        dd_symptom: "По симптомам", dd_symptom_desc: "Целевые рекомендации",
+        dd_ai: "ИИ Фармацевт", dd_ai_desc: "Получите персональный совет",
+        dd_all: "Все продукты", dd_all_prod: "Все продукты", dd_all_prod_desc: "Полный каталог",
+        dd_ingredients: "Наука", dd_science: "Наука", dd_science_desc: "Клинические ингредиенты",
+        dd_assessment: "Пройти оценку", dd_take: "Пройти оценку", dd_take_desc: "Получить рекомендации",
+        
         symptoms_title: "Поддержка при симптомах", symptoms_desc: "Выберите основную жалобу для получения клинически обоснованных рекомендаций.",
         sym_sleep: "Оптимизация сна", sym_sleep_desc: "Восстановление циркадных ритмов и углубление фазы REM.", sym_stress: "Модуляция стресса", sym_stress_desc: "Регуляция кортизола и поддержка оси HPA.",
         sym_energy: "Стабильная энергия", sym_energy_desc: "Снижение усталости без перевозбуждения ЦНС.", sym_immunity: "Иммунная готовность", sym_immunity_desc: "Оптимизация врожденного и адаптивного иммунитета.",
         sym_focus: "Когнитивная ясность", sym_focus_desc: "Улучшение нейропластичности и рабочей памяти.",
+        btn_add: "В протокол",
         ing_title: "Клинические ингредиенты", ing_desc: "Фармацевтические соединения с подтвержденной биодоступностью.",
         ing_mag_desc: "Поддержка 300+ ферментативных путей, нервно-мышечного расслабления и архитектуры сна.",
         ing_d3_desc: "Иммунная модуляция, гомеостаз кальция и регуляция нейростероидов.",
@@ -348,23 +530,44 @@
         routine_e2_title: "За 60 мин до сна", routine_e2_desc: "Магний Глицинат + L-Теанин + Валериана",
         chat_title: "Интерфейс Фармацевта ИИ", chat_desc: "Запросы о взаимодействиях, дозировках и клинических протоколах.",
         chat_welcome: "Здравствуйте. Я ваш клинический велнес-ассистент. Как оптимизировать ваш прием добавок сегодня?",
-        chat_q1: "Можно ли сочетать магний с витамином D?", chat_a1: "Да. Магний является обязательным кофактором для метаболизма витамина D. Совместный прием повышает биодоступность. D3 утром, Магний Глицинат вечером — клинически оптимально. Нужны точные дозировки?",
         chat_placeholder: "Спросите о взаимодействиях, дозировках или протоколах...", chat_send: "Отправить",
         prod_title: "Клинические формулы", prod_desc: "Сертификат GMP. Проверено третьими сторонами. Биодоступные системы доставки.",
         prod_btn: "В протокол",
         news_title: "Клинические рассылки", news_desc: "Ежемесячные фармакологические обзоры, обновления протоколов и новые составы.", news_btn: "Подписаться", news_privacy: "Без спама. Отписка в любой момент. Обработка данных соответствует HIPAA.",
         footer_desc: "Клинический велнес, guided современной фармакологией. Научно обоснован. Точно доставлен.",
         footer_col1: "Формуляры", footer_col2: "Клиника", footer_col3: "Поддержка",
-        footer_copy: "© 2026 Veloura Health. Все права защищены. Только в образовательных целях. Не заменяет профессиональную медицинскую консультацию."
+        footer_copy: "© 2026 Veloura Health. Все права защищены. Только в образовательных целях. Не заменяет профессиональную медицинскую консультацию.",
+        
+        // Modal translations
+        modal_assessment_title: "Оценка здоровья",
+        modal_name: "Полное имя",
+        modal_email: "Email",
+        modal_primary: "Основная проблема",
+        modal_submit: "Получить персональный протокол",
+        
+        // Toast messages
+        toast_added: "Добавлено в протокол",
+        toast_subscribed: "Подписка оформлена",
+        toast_assessment: "Оценка успешно отправлена"
       },
       hy: {
         nav_symptoms: "Ախտանիշներ", nav_ingredients: "Բաղադրիչներ", nav_routines: "Պրոտոկոլներ", nav_assistant: "Դեղագետ AI", nav_shop: "Խանութ", nav_cta: "Սկսել գնահատումը",
         hero_tag: "Թվային դեղագետ օգնական", hero_title1: "Կլինիկական", hero_title2: "Առողջության պրոտոկոլներ", hero_desc: "Գիտական հիմնված հավելումներ, դեղագործական ուղեցույց և ճշգրիտ առողջության հետևում մեկ կլինիկական ինտերֆեյսում:",
         hero_cta1: "Սկսել պրոտոկոլը", hero_cta2: "Դիտել բանաձևերը",
+        
+        // New dropdown translations
+        dd_circadian: "Ցիրկադային պրոտոկոլ", dd_circadian_desc: "Առավոտյան և երեկոյան ռուտիններ",
+        dd_symptom: "Ըստ ախտանիշների", dd_symptom_desc: "Թիրախային առաջարկություններ",
+        dd_ai: "AI Դեղագետ", dd_ai_desc: "Ստացեք անհատական խորհուրդ",
+        dd_all: "Բոլոր ապրանքները", dd_all_prod: "Բոլոր ապրանքները", dd_all_prod_desc: "Դիտել ամբողջ կատալոգը",
+        dd_ingredients: "Գիտություն", dd_science: "Գիտություն", dd_science_desc: "Կլինիկական բաղադրիչներ",
+        dd_assessment: "Անցնել գնահատում", dd_take: "Անցնել գնահատում", dd_take_desc: "Ստանալ առաջարկություններ",
+        
         symptoms_title: "Ախտանիշների աջակցություն", symptoms_desc: "Ընտրեք հիմնական գանգատը՝ կլինիկական հիմնված առաջարկություններ ստանալու համար:",
         sym_sleep: "Քնի օպտիմալացում", sym_sleep_desc: "Վերականգնել ցիրկադային ռիթմերը և խորացնել REM փուլերը:", sym_stress: "Սթրեսի կարգավորում", sym_stress_desc: "Կորտիզոլի կարգավորում և HPA առանցքի աջակցություն:",
         sym_energy: "Կայուն էներգիա", sym_energy_desc: "Հոգնածության նվազեցում առանց ԿՆՀ գերգրգռման:", sym_immunity: "Իմունային պատրաստվածություն", sym_immunity_desc: "Բնածին և հարմարվողական իմունիտետի օպտիմալացում:",
         sym_focus: "Կոգնիտիվ հստակություն", sym_focus_desc: "Նեյրոպլաստիկության և աշխատանքային հիշողության բարելավում:",
+        btn_add: "Ավելացնել պրոտոկոլ",
         ing_title: "Կլինիկական բաղադրիչներ", ing_desc: "Դեղագործական միացություններ հաստատված կենսամատչելիությամբ:",
         ing_mag_desc: "300+ ֆերմենտային ուղիների, նյարդամկանային թուլացման և քնի կառուցվածքի աջակցություն:",
         ing_d3_desc: "Իմունային մոդուլյացիա, կալցիումի հոմեոստազ և նեյրոստերոիդների կարգավորում:",
@@ -378,14 +581,25 @@
         routine_e2_title: "Քնից 60 րոպե առաջ", routine_e2_desc: "Մագնեզիում Գլիցինատ + L-Թեանին + Վալերիանա",
         chat_title: "Դեղագետ AI ինտերֆեյս", chat_desc: "Հարցումներ փոխազդեցությունների, դեղաչափերի և կլինիկական պրոտոկոլների վերաբերյալ:",
         chat_welcome: "Ողջույն: Ես ձեր կլինիկական առողջության օգնականն եմ: Ինչպե՞ս կարող եմ օպտիմալացնել ձեր հավելումների ընդունումը:",
-        chat_q1: "Կարո՞ղ եմ միաժամանակ ընդունել մագնեզիում և վիտամին D:", chat_a1: "Այո: Մագնեզիումը անհրաժեշտ կոֆակտոր է վիտամին D-ի նյութափոխանակության համար: Համատեղ ընդունումը բարձրացնում է կենսամատչելիությունը: D3-ը առավոտյան, Մագնեզիում Գլիցինատը երեկոյան՝ կլինիկական օպտիմալ: Ցանկանու՞մ եք ճշգրիտ դեղաչափեր:",
         chat_placeholder: "Հարցրեք փոխազդեցությունների, դեղաչափերի կամ պրոտոկոլների մասին...", chat_send: "Ուղարկել",
         prod_title: "Կլինիկական բանաձևեր", prod_desc: "GMP սերտիֆիկացված: Երրորդ կողմի կողմից փորձարկված: Կենսամատչելի առաքման համակարգեր:",
         prod_btn: "Ավելացնել պրոտոկոլ",
         news_title: "Կլինիկական տեղեկագրեր", news_desc: "Ամսական դեղաբանական տեսություններ, պրոտոկոլների թարմացումներ և նոր բանաձևեր:", news_btn: "Բաժանորդագրվել", news_privacy: "Առանց սպամի: Չեղարկում ցանկացած պահի: HIPAA-ին համապատասխան տվյալների մշակում:",
         footer_desc: "Կլինիկական առողջություն՝ ժամանակակից դեղաբանության ուղեցույցով: Գիտական հիմնված: Ճշգրիտ առաքված:",
         footer_col1: "Դեղամիջոցներ", footer_col2: "Կլինիկա", footer_col3: "Աջակցություն",
-        footer_copy: "© 2026 Veloura Health. Բոլոր իրավունքները պաշտպանված են: Միայն կրթական նպատակներով: Չի փոխարինում մասնագիտական բժշկական խորհրդատվությանը:"
+        footer_copy: "© 2026 Veloura Health. Բոլոր իրավունքները պաշտպանված են: Միայն կրթական նպատակներով: Չի փոխարինում մասնագիտական բժշկական խորհրդատվությանը:",
+        
+        // Modal translations
+        modal_assessment_title: "Առողջության գնահատում",
+        modal_name: "Անուն, Ազգանուն",
+        modal_email: "Էլ. հասցե",
+        modal_primary: "Հիմնական խնդիր",
+        modal_submit: "Ստանալ անհատական պրոտոկոլ",
+        
+        // Toast messages
+        toast_added: "Ավելացված է պրոտոկոլ",
+        toast_subscribed: "Բաժանորդագրված է",
+        toast_assessment: "Գնահատումը հաջողությամբ ուղարկված է"
       }
     };
 
@@ -416,27 +630,165 @@
     const savedLang = localStorage.getItem('veloura-lang') || 'en';
     setLanguage(savedLang);
 
+    // Dropdown Functionality
+    const beginBtn = document.getElementById('btn-begin');
+    const beginDropdown = document.getElementById('begin-dropdown');
+    const beginArrow = document.getElementById('begin-arrow');
+    const formulationsBtn = document.getElementById('btn-formulations');
+    const formulationsDropdown = document.getElementById('formulations-dropdown');
+    const formulationsArrow = document.getElementById('formulations-arrow');
+
+    function toggleDropdown(btn, dropdown, arrow) {
+      const isShown = dropdown.classList.contains('show');
+      
+      // Close all dropdowns
+      closeAllDropdowns();
+      
+      if (!isShown) {
+        dropdown.classList.add('show');
+        arrow.style.transform = 'rotate(180deg)';
+      }
+    }
+
+    function closeAllDropdowns() {
+      [beginDropdown, formulationsDropdown].forEach(dd => {
+        if (dd) {
+          dd.classList.remove('show');
+        }
+      });
+      if (beginArrow) beginArrow.style.transform = 'rotate(0deg)';
+      if (formulationsArrow) formulationsArrow.style.transform = 'rotate(0deg)';
+    }
+
+    beginBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown(beginBtn, beginDropdown, beginArrow);
+    });
+
+    formulationsBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown(formulationsBtn, formulationsDropdown, formulationsArrow);
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!beginBtn?.contains(e.target) && !beginDropdown?.contains(e.target)) {
+        beginDropdown?.classList.remove('show');
+        if (beginArrow) beginArrow.style.transform = 'rotate(0deg)';
+      }
+      if (!formulationsBtn?.contains(e.target) && !formulationsDropdown?.contains(e.target)) {
+        formulationsDropdown?.classList.remove('show');
+        if (formulationsArrow) formulationsArrow.style.transform = 'rotate(0deg)';
+      }
+    });
+
+    // Smooth scroll for dropdown items
+    document.querySelectorAll('.dropdown-item[href^="#"]').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = item.getAttribute('href');
+        const target = document.querySelector(targetId);
+        if (target) {
+          closeAllDropdowns();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Modal Functions
+    function openAssessmentModal() {
+      const modal = document.getElementById('assessment-modal');
+      const backdrop = modal.querySelector('.modal-backdrop');
+      const content = modal.querySelector('.modal-content');
+      modal.classList.remove('hidden');
+      setTimeout(() => {
+        backdrop.classList.add('show');
+        content.classList.add('show');
+      }, 10);
+      document.body.style.overflow = 'hidden';
+      closeAllDropdowns();
+    }
+
+    function closeAssessmentModal() {
+      const modal = document.getElementById('assessment-modal');
+      const backdrop = modal.querySelector('.modal-backdrop');
+      const content = modal.querySelector('.modal-content');
+      backdrop.classList.remove('show');
+      content.classList.remove('show');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }, 300);
+    }
+
+    // Nav assessment button
+    document.getElementById('nav-assessment-btn')?.addEventListener('click', openAssessmentModal);
+
+    // Assessment form submit
+    document.getElementById('assessment-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      closeAssessmentModal();
+      showToast(i18n[savedLang].toast_assessment || 'Assessment submitted successfully');
+      e.target.reset();
+    });
+
+    // Toast Notification
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastMessage = document.getElementById('toast-message');
+      toastMessage.textContent = message;
+      toast.classList.remove('translate-y-24');
+      setTimeout(() => {
+        toast.classList.add('translate-y-24');
+      }, 3000);
+    }
+
     // UI Logic (Scroll Reveal, Symptoms, Routine, Chat, Smooth Scroll)
     const observer = new IntersectionObserver((entries) => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
     document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
+    // Symptom cards
     document.querySelectorAll('[data-symptom]').forEach(card => {
-      card.addEventListener('click', () => {
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('button')) return; // Don't toggle if button clicked
         const content = card.querySelector('.symptom-content');
         content.classList.toggle('hidden');
         card.classList.toggle('border-medical-accent/40');
       });
     });
 
+    // Add to protocol buttons in symptoms
+    document.querySelectorAll('[data-symptom] button').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showToast(i18n[savedLang].toast_added || 'Added to your protocol');
+      });
+    });
+
+    // Routine toggle
     const btnM = document.getElementById('btn-morning'), btnE = document.getElementById('btn-evening');
     const mRoutine = document.getElementById('moroutine'), eRoutine = document.getElementById('eveningroutine');
     const toggleRoutine = (isMorning) => {
-      if(isMorning) { mRoutine.classList.remove('hidden'); eRoutine.classList.add('hidden'); btnM.classList.replace('glass-dark','bg-medical-accent'); btnM.classList.replace('text-slate-300','text-white'); btnE.classList.replace('bg-medical-accent','glass-dark'); btnE.classList.replace('text-white','text-slate-300'); }
-      else { eRoutine.classList.remove('hidden'); mRoutine.classList.add('hidden'); btnE.classList.replace('glass-dark','bg-medical-accent'); btnE.classList.replace('text-slate-300','text-white'); btnM.classList.replace('bg-medical-accent','glass-dark'); btnM.classList.replace('text-white','text-slate-300'); }
+      if(isMorning) { 
+        mRoutine.classList.remove('hidden'); 
+        eRoutine.classList.add('hidden'); 
+        btnM.classList.replace('glass-dark','bg-medical-accent'); 
+        btnM.classList.replace('text-slate-300','text-white'); 
+        btnE.classList.replace('bg-medical-accent','glass-dark'); 
+        btnE.classList.replace('text-white','text-slate-300'); 
+      } else { 
+        eRoutine.classList.remove('hidden'); 
+        mRoutine.classList.add('hidden'); 
+        btnE.classList.replace('glass-dark','bg-medical-accent'); 
+        btnE.classList.replace('text-slate-300','text-white'); 
+        btnM.classList.replace('bg-medical-accent','glass-dark'); 
+        btnM.classList.replace('text-white','text-slate-300'); 
+      }
     };
     btnM.addEventListener('click', () => toggleRoutine(true));
     btnE.addEventListener('click', () => toggleRoutine(false));
 
+    // Chat functionality
     const chatInput = document.getElementById('chat-input'), sendBtn = document.getElementById('send-btn'), chatMessages = document.getElementById('chat-messages');
     const addMessage = (text, isUser = false) => {
       const div = document.createElement('div');
@@ -459,7 +811,45 @@
     sendBtn.addEventListener('click', handleSend);
     chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleSend(); });
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => anchor.addEventListener('click', function(e) { e.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }); }));
+    // Add to cart buttons
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showToast(i18n[savedLang].toast_added || 'Added to your protocol');
+      });
+    });
+
+    // Newsletter form
+    document.getElementById('newsletter-form')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('newsletter-email').value;
+      if (email) {
+        showToast(i18n[savedLang].toast_subscribed || 'Successfully subscribed');
+        e.target.reset();
+      }
+    });
+
+    // Smooth scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+
+    // Close modal on ESC key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAssessmentModal();
+        closeAllDropdowns();
+      }
+    });
   </script>
 </body>
 </html>
