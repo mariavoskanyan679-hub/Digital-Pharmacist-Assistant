@@ -834,27 +834,47 @@
         e.target.reset();
       }
     });
+const dropdowns = [
+  { btn: document.getElementById('btn-begin'), menu: document.getElementById('begin-dropdown'), arrow: document.getElementById('begin-arrow') },
+  { btn: document.getElementById('btn-formulations'), menu: document.getElementById('formulations-dropdown'), arrow: document.getElementById('formulations-arrow') }
+];
 
-    // Smooth scroll for all anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href !== '#') {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }
-      });
-    });
-
-    // Close modal on ESC key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeAssessmentModal();
-        closeAllDropdowns();
+dropdowns.forEach(({ btn, menu, arrow }) => {
+  if (!btn || !menu) return;
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    // Закрыть остальные
+    dropdowns.forEach(d => {
+      if (d.menu !== menu) {
+        d.menu.classList.remove('show');
+        if(d.arrow) d.arrow.style.transform = 'rotate(0deg)';
       }
+    });
+    // Переключить текущий
+    menu.classList.toggle('show');
+    if(arrow) arrow.style.transform = menu.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
+  });
+});
+
+// Закрыть при клике вне
+document.addEventListener('click', () => {
+  dropdowns.forEach(d => {
+    if(d.menu) d.menu.classList.remove('show');
+    if(d.arrow) d.arrow.style.transform = 'rotate(0deg)';
+  });
+});
+
+// Плавный скролл для ссылок в dropdown
+document.querySelectorAll('#begin-dropdown a, #formulations-dropdown a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Закрыть меню после клика
+    dropdowns.forEach(d => d.menu?.classList.remove('show'));
+    document.querySelectorAll('#begin-arrow, #formulations-arrow').forEach(a => a.style.transform = 'rotate(0deg)');
+  });
+});
     });
   </script>
 </body>
