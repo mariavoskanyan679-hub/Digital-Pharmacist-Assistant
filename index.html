@@ -32,23 +32,21 @@
     @keyframes pulse-slow { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
     .pulse-med { animation: pulse-slow 4s ease-in-out infinite; }
     
-    /* Dropdown animations */
+    /* Dropdown styles */
     .dropdown-menu {
       opacity: 0;
-      transform: translateY(-10px);
+      visibility: hidden;
+      transform: translate(-50%, -10px);
       transition: all 0.2s ease;
       pointer-events: none;
     }
     .dropdown-menu.show {
       opacity: 1;
-      transform: translateY(0);
+      visibility: visible;
+      transform: translate(-50%, 0);
       pointer-events: auto;
     }
-#begin-dropdown.show, #formulations-dropdown.show {
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: translate(-50%, 0) !important;
-}
+    
     /* Modal animations */
     .modal-backdrop {
       opacity: 0;
@@ -107,84 +105,46 @@
         <span class="text-gradient-med" data-i18n="hero_title2">Wellness Protocols</span>
       </h2>
       <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light" data-i18n="hero_desc">Evidence-based supplementation, pharmaceutical guidance, and precision wellness tracking in a unified clinical interface.</p>
+      
+      <!-- Buttons with Dropdowns -->
       <div class="flex flex-col sm:flex-row gap-4 justify-center items-start">
-  <!-- Begin Protocol -->
-  <div class="relative">
-    <button id="btn-begin" class="bg-medical-accent text-white px-8 py-4 rounded-full font-medium hover:bg-cyan-500 transition glow-accent flex items-center gap-2 min-w-[200px] justify-center">
-      <span data-i18n="hero_cta1">Begin Protocol</span>
-      <svg class="w-4 h-4 transition-transform duration-200" id="begin-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </button>
-    <div id="begin-dropdown" class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-[9999] opacity-0 invisible transition-all duration-200 transform -translate-y-2">
-      <div class="p-2">
-        <a href="#routine" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
-          <div class="flex items-center gap-3"><span class="text-lg">🌅</span><div><div class="font-medium text-slate-200" data-i18n="dd_circadian">Circadian Protocol</div><div class="text-xs text-slate-400" data-i18n="dd_circadian_desc">Morning & evening routines</div></div></div>
-        </a>
-        <a href="#symptoms" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
-          <div class="flex items-center gap-3"><span class="text-lg">🎯</span><div><div class="font-medium text-slate-200" data-i18n="dd_symptom">Symptom-Based</div><div class="text-xs text-slate-400" data-i18n="dd_symptom_desc">Target your concerns</div></div></div>
-        </a>
-        <a href="#assistant" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition">
-          <div class="flex items-center gap-3"><span class="text-lg"></span><div><div class="font-medium text-slate-200" data-i18n="dd_ai">AI Pharmacist</div><div class="text-xs text-slate-400" data-i18n="dd_ai_desc">Get personalized advice</div></div></div>
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- View Formulations -->
-  <div class="relative">
-    <button id="btn-formulations" class="glass-dark px-8 py-4 rounded-full font-medium hover:bg-slate-800/60 transition flex items-center gap-2 min-w-[200px] justify-center">
-      <span data-i18n="hero_cta2">View Formulations</span>
-      <svg class="w-4 h-4 transition-transform duration-200" id="formulations-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-    </button>
-    <div id="formulations-dropdown" class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-[9999] opacity-0 invisible transition-all duration-200 transform -translate-y-2">
-      <div class="p-2">
-        <a href="#products" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
-          <div class="flex items-center gap-3"><span class="text-lg">💊</span><div><div class="font-medium text-slate-200" data-i18n="dd_all_prod">All Products</div><div class="text-xs text-slate-400" data-i18n="dd_all_prod_desc">Browse full catalog</div></div></div>
-        </a>
-        <a href="#ingredients" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
-          <div class="flex items-center gap-3"><span class="text-lg">🔬</span><div><div class="font-medium text-slate-200" data-i18n="dd_science">Science</div><div class="text-xs text-slate-400" data-i18n="dd_science_desc">Clinical ingredients</div></div></div>
-        </a>
-        <button onclick="openAssessmentModal()" class="w-full text-left px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition">
-          <div class="flex items-center gap-3"><span class="text-lg">📋</span><div><div class="font-medium text-slate-200" data-i18n="dd_take">Take Assessment</div><div class="text-xs text-slate-400" data-i18n="dd_take_desc">Get recommendations</div></div></div>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
+        <!-- Begin Protocol Dropdown -->
+        <div class="relative">
+          <button id="btn-begin" class="bg-medical-accent text-white px-8 py-4 rounded-full font-medium hover:bg-cyan-500 transition glow-accent flex items-center gap-2 min-w-[200px] justify-center">
+            <span data-i18n="hero_cta1">Begin Protocol</span>
+            <svg class="w-4 h-4 transition-transform duration-200" id="begin-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div id="begin-dropdown" class="dropdown-menu absolute top-full left-1/2 mt-3 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-[9999]">
+            <div class="p-2">
+              <a href="#routine" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
+                <div class="flex items-center gap-3"><span class="text-lg">🌅</span><div><div class="font-medium text-slate-200" data-i18n="dd_circadian">Circadian Protocol</div><div class="text-xs text-slate-400" data-i18n="dd_circadian_desc">Morning & evening routines</div></div></div>
+              </a>
+              <a href="#symptoms" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
+                <div class="flex items-center gap-3"><span class="text-lg">🎯</span><div><div class="font-medium text-slate-200" data-i18n="dd_symptom">Symptom-Based</div><div class="text-xs text-slate-400" data-i18n="dd_symptom_desc">Target your concerns</div></div></div>
+              </a>
+              <a href="#assistant" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition">
+                <div class="flex items-center gap-3"><span class="text-lg">🤖</span><div><div class="font-medium text-slate-200" data-i18n="dd_ai">AI Pharmacist</div><div class="text-xs text-slate-400" data-i18n="dd_ai_desc">Get personalized advice</div></div></div>
+              </a>
+            </div>
+          </div>
+        </div>
 
         <!-- View Formulations Dropdown -->
-        <div class="relative inline-block">
-          <button id="btn-formulations" class="glass-dark px-8 py-4 rounded-full font-medium hover:bg-slate-800/60 transition flex items-center gap-2">
+        <div class="relative">
+          <button id="btn-formulations" class="glass-dark px-8 py-4 rounded-full font-medium hover:bg-slate-800/60 transition flex items-center gap-2 min-w-[200px] justify-center">
             <span data-i18n="hero_cta2">View Formulations</span>
-            <svg class="w-4 h-4 transition-transform" id="formulations-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            <svg class="w-4 h-4 transition-transform duration-200" id="formulations-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
           </button>
-          <div id="formulations-dropdown" class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-50">
+          <div id="formulations-dropdown" class="dropdown-menu absolute top-full left-1/2 mt-3 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-[9999]">
             <div class="p-2">
-              <a href="#products" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1" data-i18n="dd_all">
-                <div class="flex items-center gap-3">
-                  <span class="text-lg">💊</span>
-                  <div>
-                    <div class="font-medium text-slate-200" data-i18n="dd_all_prod">All Products</div>
-                    <div class="text-xs text-slate-400" data-i18n="dd_all_prod_desc">Browse full catalog</div>
-                  </div>
-                </div>
+              <a href="#products" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
+                <div class="flex items-center gap-3"><span class="text-lg">💊</span><div><div class="font-medium text-slate-200" data-i18n="dd_all_prod">All Products</div><div class="text-xs text-slate-400" data-i18n="dd_all_prod_desc">Browse full catalog</div></div></div>
               </a>
-              <a href="#ingredients" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1" data-i18n="dd_ingredients">
-                <div class="flex items-center gap-3">
-                  <span class="text-lg">🔬</span>
-                  <div>
-                    <div class="font-medium text-slate-200" data-i18n="dd_science">Science</div>
-                    <div class="text-xs text-slate-400" data-i18n="dd_science_desc">Clinical ingredients</div>
-                  </div>
-                </div>
+              <a href="#ingredients" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
+                <div class="flex items-center gap-3"><span class="text-lg">🔬</span><div><div class="font-medium text-slate-200" data-i18n="dd_science">Science</div><div class="text-xs text-slate-400" data-i18n="dd_science_desc">Clinical ingredients</div></div></div>
               </a>
-              <button onclick="openAssessmentModal()" class="dropdown-item w-full text-left px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition" data-i18n="dd_assessment">
-                <div class="flex items-center gap-3">
-                  <span class="text-lg">📋</span>
-                  <div>
-                    <div class="font-medium text-slate-200" data-i18n="dd_take">Take Assessment</div>
-                    <div class="text-xs text-slate-400" data-i18n="dd_take_desc">Get recommendations</div>
-                  </div>
-                </div>
+              <button onclick="openAssessmentModal()" class="w-full text-left px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition">
+                <div class="flex items-center gap-3"><span class="text-lg">📋</span><div><div class="font-medium text-slate-200" data-i18n="dd_take">Take Assessment</div><div class="text-xs text-slate-400" data-i18n="dd_take_desc">Get recommendations</div></div></div>
               </button>
             </div>
           </div>
@@ -330,10 +290,10 @@
         <h3 class="font-mono text-3xl md:text-4xl mb-4" data-i18n="chat_title">Pharmacist AI Interface</h3>
         <p class="text-slate-400" data-i18n="chat_desc">Query interactions, dosing parameters, and clinical protocols.</p>
       </div>
-      <div class="glass-dark p-6 rounded-2xl h-[420px] flex flex-col glow-accent scroll-reveal">
+      <div class="glass-dark p-6 rounded-2xl h-[480px] flex flex-col glow-accent scroll-reveal">
         <div id="chat-messages" class="flex-1 overflow-y-auto space-y-4 pr-2 mb-4 chat-scroll">
           <div class="flex items-start gap-3">
-            <div class="w-8 h-8 rounded-full bg-medical-accent/20 flex items-center justify-center text-medical-accent text-xs font-bold">+</div>
+            <div class="w-8 h-8 rounded-full bg-medical-accent/20 flex items-center justify-center text-medical-accent text-xs font-bold shrink-0">+</div>
             <div class="bg-slate-800/60 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-sm border border-slate-700/50">
               <span data-i18n="chat_welcome">Hello. I'm your clinical wellness assistant. How can I optimize your supplementation today?</span>
             </div>
@@ -458,15 +418,12 @@
         nav_symptoms: "Symptoms", nav_ingredients: "Ingredients", nav_routines: "Routines", nav_assistant: "Pharmacist AI", nav_shop: "Shop", nav_cta: "Start Assessment",
         hero_tag: "Digital Pharmacist Assistant", hero_title1: "Clinical-Grade", hero_title2: "Wellness Protocols", hero_desc: "Evidence-based supplementation, pharmaceutical guidance, and precision wellness tracking in a unified clinical interface.",
         hero_cta1: "Begin Protocol", hero_cta2: "View Formulations",
-        
-        // New dropdown translations
         dd_circadian: "Circadian Protocol", dd_circadian_desc: "Morning & evening routines",
         dd_symptom: "Symptom-Based", dd_symptom_desc: "Target your concerns",
         dd_ai: "AI Pharmacist", dd_ai_desc: "Get personalized advice",
-        dd_all: "All Products", dd_all_prod: "All Products", dd_all_prod_desc: "Browse full catalog",
-        dd_ingredients: "Science", dd_science: "Science", dd_science_desc: "Clinical ingredients",
-        dd_assessment: "Take Assessment", dd_take: "Take Assessment", dd_take_desc: "Get recommendations",
-        
+        dd_all_prod: "All Products", dd_all_prod_desc: "Browse full catalog",
+        dd_science: "Science", dd_science_desc: "Clinical ingredients",
+        dd_take: "Take Assessment", dd_take_desc: "Get recommendations",
         symptoms_title: "Symptom Support", symptoms_desc: "Select your primary concern to receive clinically-backed recommendations.",
         sym_sleep: "Sleep Optimization", sym_sleep_desc: "Restore circadian alignment and deepen REM cycles.", sym_stress: "Stress Modulation", sym_stress_desc: "Regulate cortisol and support HPA axis function.",
         sym_energy: "Sustained Energy", sym_energy_desc: "Mitigate fatigue without CNS overstimulation.", sym_immunity: "Immune Readiness", sym_immunity_desc: "Optimize innate and adaptive immune response.",
@@ -492,32 +449,41 @@
         footer_desc: "Clinical wellness guided by modern pharmacology. Science-backed. Precisely delivered.",
         footer_col1: "Formulary", footer_col2: "Clinical", footer_col3: "Support",
         footer_copy: "© 2026 Veloura Health. All rights reserved. Educational purposes only. Not a substitute for professional medical advice.",
-        
-        // Modal translations
         modal_assessment_title: "Wellness Assessment",
         modal_name: "Full Name",
         modal_email: "Email Address",
         modal_primary: "Primary Concern",
         modal_submit: "Get Personalized Protocol",
-        
-        // Toast messages
         toast_added: "Added to your protocol",
         toast_subscribed: "Successfully subscribed",
-        toast_assessment: "Assessment submitted successfully"
+        toast_assessment: "Assessment submitted successfully",
+        
+        // AI Responses EN
+        ai_magnesium: "Magnesium is essential for 300+ enzymatic reactions. Recommended forms: Glycinate (sleep), Citrate (digestion), L-Threonate (cognitive). Typical dose: 200-400mg elemental magnesium daily. Take with food to minimize GI effects.",
+        ai_vitamin_d: "Vitamin D3 is crucial for immune function and bone health. Standard dose: 2000-5000 IU daily. Always pair with K2 (MK-7) for proper calcium direction. Take with fatty meals for optimal absorption. Get levels tested annually.",
+        ai_zinc: "Zinc supports immune function and testosterone production. Recommended: 15-30mg elemental zinc as picolinate or citrate. Take with food to avoid nausea. Don't exceed 40mg daily long-term as it can deplete copper.",
+        ai_omega3: "Omega-3 EPA/DHA reduces inflammation and supports brain health. Look for triglyceride form, 1000-2000mg combined EPA/DHA daily. Take with meals. Choose molecularly distilled brands to avoid heavy metals.",
+        ai_sleep: "For sleep optimization: Magnesium Glycinate 200-400mg + L-Theanine 100-200mg, taken 60 mins before bed. Consider adding glycine 3g and valerian root. Maintain consistent sleep schedule and avoid blue light 2 hours before bed.",
+        ai_stress: "For stress management: Ashwagandha KSM-66 (300-600mg) + Rhodiola Rosea (200-400mg). Take in morning or early afternoon. Add magnesium and B-complex. Practice breathwork and maintain regular exercise.",
+        ai_energy: "For sustained energy: Methylated B-Complex + CoQ10 Ubiquinol (100-200mg) + D3/K2. Take with breakfast. Ensure adequate iron, B12, and thyroid function. Avoid caffeine after 2pm. Stay hydrated.",
+        ai_default: "That's an excellent question. For personalized recommendations, I suggest considering your specific health goals, current medications, and biomarkers. Would you like guidance on a specific supplement or protocol? I can help with dosing, timing, and potential interactions.",
+        
+        // Quick responses for common questions
+        ai_d3_magnesium: "Yes! Magnesium is a required cofactor for Vitamin D metabolism. Taking them together enhances bioavailability. Recommended: D3+K2 in the morning with food, Magnesium Glycinate in the evening for sleep support.",
+        ai_interactions: "Always separate minerals (zinc, magnesium, iron) by 2-3 hours for optimal absorption. Fat-soluble vitamins (A,D,E,K) should be taken with fatty meals. Consult your physician if taking prescription medications.",
+        ai_timing: "Morning: D3/K2, B-Complex, Omega-3, CoQ10. Evening: Magnesium, Zinc, Ashwagandha. Split doses improve absorption. Take fat-soluble vitamins with meals containing fat.",
+        ai_safety: "Our protocols use clinically-studied doses. However, consult your healthcare provider if pregnant, nursing, taking medications, or have chronic conditions. Start with lower doses and titrate up. Discontinue if adverse effects occur."
       },
       ru: {
         nav_symptoms: "Симптомы", nav_ingredients: "Ингредиенты", nav_routines: "Протоколы", nav_assistant: "Фармацевт ИИ", nav_shop: "Магазин", nav_cta: "Начать оценку",
         hero_tag: "Цифровой фармацевтический помощник", hero_title1: "Клинические", hero_title2: "Велнес-протоколы", hero_desc: "Научно обоснованные добавки, фармацевтическое сопровождение и точный трекинг здоровья в едином клиническом интерфейсе.",
         hero_cta1: "Начать протокол", hero_cta2: "Составы",
-        
-        // New dropdown translations
         dd_circadian: "Циркадный протокол", dd_circadian_desc: "Утренние и вечерние рутины",
         dd_symptom: "По симптомам", dd_symptom_desc: "Целевые рекомендации",
         dd_ai: "ИИ Фармацевт", dd_ai_desc: "Получите персональный совет",
-        dd_all: "Все продукты", dd_all_prod: "Все продукты", dd_all_prod_desc: "Полный каталог",
-        dd_ingredients: "Наука", dd_science: "Наука", dd_science_desc: "Клинические ингредиенты",
-        dd_assessment: "Пройти оценку", dd_take: "Пройти оценку", dd_take_desc: "Получить рекомендации",
-        
+        dd_all_prod: "Все продукты", dd_all_prod_desc: "Полный каталог",
+        dd_science: "Наука", dd_science_desc: "Клинические ингредиенты",
+        dd_take: "Пройти оценку", dd_take_desc: "Получить рекомендации",
         symptoms_title: "Поддержка при симптомах", symptoms_desc: "Выберите основную жалобу для получения клинически обоснованных рекомендаций.",
         sym_sleep: "Оптимизация сна", sym_sleep_desc: "Восстановление циркадных ритмов и углубление фазы REM.", sym_stress: "Модуляция стресса", sym_stress_desc: "Регуляция кортизола и поддержка оси HPA.",
         sym_energy: "Стабильная энергия", sym_energy_desc: "Снижение усталости без перевозбуждения ЦНС.", sym_immunity: "Иммунная готовность", sym_immunity_desc: "Оптимизация врожденного и адаптивного иммунитета.",
@@ -543,32 +509,39 @@
         footer_desc: "Клинический велнес, guided современной фармакологией. Научно обоснован. Точно доставлен.",
         footer_col1: "Формуляры", footer_col2: "Клиника", footer_col3: "Поддержка",
         footer_copy: "© 2026 Veloura Health. Все права защищены. Только в образовательных целях. Не заменяет профессиональную медицинскую консультацию.",
-        
-        // Modal translations
         modal_assessment_title: "Оценка здоровья",
         modal_name: "Полное имя",
         modal_email: "Email",
         modal_primary: "Основная проблема",
         modal_submit: "Получить персональный протокол",
-        
-        // Toast messages
         toast_added: "Добавлено в протокол",
         toast_subscribed: "Подписка оформлена",
-        toast_assessment: "Оценка успешно отправлена"
+        toast_assessment: "Оценка успешно отправлена",
+        
+        // AI Responses RU
+        ai_magnesium: "Магний необходим для 300+ ферментативных реакций. Рекомендуемые формы: Глицинат (сон), Цитрат (пищеварение), L-Треонат (когнитивные функции). Типичная доза: 200-400мг элементарного магния ежедневно. Принимать с пищей для минимизации эффектов со стороны ЖКТ.",
+        ai_vitamin_d: "Витамин D3 критически важен для иммунитета и здоровья костей. Стандартная доза: 2000-5000 МЕ ежедневно. Всегда сочетайте с K2 (MK-7) для правильного направления кальция. Принимать с жирной пищей для оптимального усвоения. Проверяйте уровень ежегодно.",
+        ai_zinc: "Цинк поддерживает иммунную функцию и выработку тестостерона. Рекомендуется: 15-30мг элементарного цинка в форме пиколината или цитрата. Принимать с пищей во избежание тошноты. Не превышайте 40мг ежедневно长期, так как это может истощить медь.",
+        ai_omega3: "Омега-3 EPA/DHA снижает воспаление и поддерживает здоровье мозга. Ищите форму триглицеридов, 1000-2000мг комбинированных EPA/DHA ежедневно. Принимать с пищей. Выбирайте молекулярно дистиллированные бренды, чтобы избежать тяжелых металлов.",
+        ai_sleep: "Для оптимизации сна: Магний Глицинат 200-400мг + L-Теанин 100-200мг, за 60 минут до сна. Рассмотрите добавление глицина 3г и корня валерианы. Поддерживайте постоянный график сна и избегайте синего света за 2 часа до сна.",
+        ai_stress: "Для управления стрессом: Ашваганда KSM-66 (300-600мг) + Родиола Розеа (200-400мг). Принимать утром или рано днем. Добавьте магний и B-комплекс. Практикуйте дыхательные упражнения и поддерживайте регулярные физические нагрузки.",
+        ai_energy: "Для устойчивой энергии: Метилированный B-комплекс + CoQ10 Убихинол (100-200мг) + D3/K2. Принимать с завтраком. Обеспечьте адекватный уровень железа, B12 и функцию щитовидной железы. Избегайте кофеина после 14:00. Пейте достаточно воды.",
+        ai_default: "Отличный вопрос. Для персонализированных рекомендаций рекомендую учитывать ваши конкретные цели здоровья, текущие лекарства и биомаркеры. Хотите получить рекомендации по конкретной добавке или протоколу? Я могу помочь с дозировкой, временем приема и потенциальными взаимодействиями.",
+        ai_d3_magnesium: "Да! Магний является необходимым кофактором для метаболизма витамина D. Совместный прием повышает биодоступность. Рекомендуется: D3+K2 утром с пищей, Магний Глицинат вечером для поддержки сна.",
+        ai_interactions: "Всегда разделяйте прием минералов (цинк, магний, железо) на 2-3 часа для оптимального усвоения. Жирорастворимые витамины (A,D,E,K) следует принимать с жирной пищей. Проконсультируйтесь с врачом, если принимаете рецептурные препараты.",
+        ai_timing: "Утро: D3/K2, B-комплекс, Омега-3, CoQ10. Вечер: Магний, Цинк, Ашваганда. Раздельный прием улучшает усвоение. Принимайте жирорастворимые витамины с пищей, содержащей жиры.",
+        ai_safety: "Наши протоколы используют клинически изученные дозы. Однако проконсультируйтесь с врачом, если беременны, кормите грудью, принимаете лекарства или имеете хронические заболевания. Начинайте с более низких доз и постепенно увеличивайте. Прекратите прием при возникновении побочных эффектов."
       },
       hy: {
         nav_symptoms: "Ախտանիշներ", nav_ingredients: "Բաղադրիչներ", nav_routines: "Պրոտոկոլներ", nav_assistant: "Դեղագետ AI", nav_shop: "Խանութ", nav_cta: "Սկսել գնահատումը",
         hero_tag: "Թվային դեղագետ օգնական", hero_title1: "Կլինիկական", hero_title2: "Առողջության պրոտոկոլներ", hero_desc: "Գիտական հիմնված հավելումներ, դեղագործական ուղեցույց և ճշգրիտ առողջության հետևում մեկ կլինիկական ինտերֆեյսում:",
         hero_cta1: "Սկսել պրոտոկոլը", hero_cta2: "Դիտել բանաձևերը",
-        
-        // New dropdown translations
         dd_circadian: "Ցիրկադային պրոտոկոլ", dd_circadian_desc: "Առավոտյան և երեկոյան ռուտիններ",
         dd_symptom: "Ըստ ախտանիշների", dd_symptom_desc: "Թիրախային առաջարկություններ",
         dd_ai: "AI Դեղագետ", dd_ai_desc: "Ստացեք անհատական խորհուրդ",
-        dd_all: "Բոլոր ապրանքները", dd_all_prod: "Բոլոր ապրանքները", dd_all_prod_desc: "Դիտել ամբողջ կատալոգը",
-        dd_ingredients: "Գիտություն", dd_science: "Գիտություն", dd_science_desc: "Կլինիկական բաղադրիչներ",
-        dd_assessment: "Անցնել գնահատում", dd_take: "Անցնել գնահատում", dd_take_desc: "Ստանալ առաջարկություններ",
-        
+        dd_all_prod: "Բոլոր ապրանքները", dd_all_prod_desc: "Դիտել ամբողջ կատալոգը",
+        dd_science: "Գիտություն", dd_science_desc: "Կլինիկական բաղադրիչներ",
+        dd_take: "Անցնել գնահատում", dd_take_desc: "Ստանալ առաջարկություններ",
         symptoms_title: "Ախտանիշների աջակցություն", symptoms_desc: "Ընտրեք հիմնական գանգատը՝ կլինիկական հիմնված առաջարկություններ ստանալու համար:",
         sym_sleep: "Քնի օպտիմալացում", sym_sleep_desc: "Վերականգնել ցիրկադային ռիթմերը և խորացնել REM փուլերը:", sym_stress: "Սթրեսի կարգավորում", sym_stress_desc: "Կորտիզոլի կարգավորում և HPA առանցքի աջակցություն:",
         sym_energy: "Կայուն էներգիա", sym_energy_desc: "Հոգնածության նվազեցում առանց ԿՆՀ գերգրգռման:", sym_immunity: "Իմունային պատրաստվածություն", sym_immunity_desc: "Բնածին և հարմարվողական իմունիտետի օպտիմալացում:",
@@ -594,18 +567,28 @@
         footer_desc: "Կլինիկական առողջություն՝ ժամանակակից դեղաբանության ուղեցույցով: Գիտական հիմնված: Ճշգրիտ առաքված:",
         footer_col1: "Դեղամիջոցներ", footer_col2: "Կլինիկա", footer_col3: "Աջակցություն",
         footer_copy: "© 2026 Veloura Health. Բոլոր իրավունքները պաշտպանված են: Միայն կրթական նպատակներով: Չի փոխարինում մասնագիտական բժշկական խորհրդատվությանը:",
-        
-        // Modal translations
         modal_assessment_title: "Առողջության գնահատում",
         modal_name: "Անուն, Ազգանուն",
         modal_email: "Էլ. հասցե",
         modal_primary: "Հիմնական խնդիր",
         modal_submit: "Ստանալ անհատական պրոտոկոլ",
-        
-        // Toast messages
         toast_added: "Ավելացված է պրոտոկոլ",
-        toast_subscribed: "Բաժանորդագրված է",
-        toast_assessment: "Գնահատումը հաջողությամբ ուղարկված է"
+        toast_subscribed: "Բաանորդագրված է",
+        toast_assessment: "Գնահատումը հաջողությամբ ուղարկված է",
+        
+        // AI Responses HY
+        ai_magnesium: "Մագնեզիումը անհրաժեշտ է 300+ ֆերմենտային ռեակցիաների համար: Խորհուրդ է տրվում ձևեր՝ Գլիցինատ (քուն), Ցիտրատ (մարսողություն), L-Թրեոնատ (կոգնիտիվ): Տիպիկ դեղաչափ 200-400մգ տարրական մագնեզիում օրական: Ընդունել սննդի հետ՝ GI էֆեկտները նվազագույնի հասցնելու համար:",
+        ai_vitamin_d: "Վիտամին D3-ը կարևոր է իմունային ֆունկցիայի և ոսկորների առողջության համար: Ստանդարտ դեղաչափ՝ 2000-5000 ՄՄ օրական: Միշտ զուգակցեք K2-ի (MK-7) հետ՝ կալցիումի ճիշտ ուղղորդման համար: Ընդունել ճարպոտ սննդի հետ՝ օպտիմալ կլանման համար: Ստուգեք մակարդակը տարեկան:",
+        ai_zinc: "Ցինկը աջակցում է իմունային ֆունկցիային և տեստոստերոնի արտադրությանը: Խորհուրդ է տրվում՝ 15-30մգ տարրական ցինկ պիկոլինատի կամ ցիտրատի ձևով: Ընդունել սննդի հետ՝ սրտխառնոցից խուսափելու համար: Երկարաժամկետ չգերազանցեք 40մգ օրական, քանի որ կարող է նվազեցնել պղինձը:",
+        ai_omega3: "Օմեգա-3 EPA/DHA-ն նվազեցնում է բորբոքումը և աջակցում է ուղեղի առողջությանը: Փնտրեք տրիգլիցերիդների ձև, 1000-2000մգ համակցված EPA/DHA օրական: Ընդունել սննդի հետ: Ընտրեք մոլեկուլային թորված բրենդներ՝ ծանր մետաղներից խուսափելու համար:",
+        ai_sleep: "Քնի օպտիմալացման համար՝ Մագնեզիում Գլիցինատ 200-400մգ + L-Թեանին 100-200մգ, քնից 60 րոպե առաջ: Դիտարկեք գլիցին 3գ և վալերիանայի արմատ: Պահպանեք քնի կայուն ռեժիմ և խուսափեք կապույտ լույսից քնից 2 ժամ առաջ:",
+        ai_stress: "Սթրեսի կառավարման համար՝ Աշվագանդա KSM-66 (300-600մգ) + Ռոդիոլա Ռոզեա (200-400մգ): Ընդունել առավոտյան կամ վաղ կեսօրին: Ավելացրեք մագնեզիում և B-կոմպլեքս: Կիրառեք շնչառական վարժություններ և պահպանեք կանոնավոր ֆիզիկական ակտիվություն:",
+        ai_energy: "Կայուն էներգիայի համար՝ Մեթիլացված B-Կոմպլեքս + CoQ10 Ուբիխինոլ (100-200մգ) + D3/K2: Ընդունել նախաճաշի հետ: Ապահովեք բավարար երկաթ, B12 և վահանաձև գեղձի ֆունկցիա: Խուսափեք կոֆեինից երեկոյան 2-ից հետո: Մնացեք հիդրատացված:",
+        ai_default: "Հիանալի հարց է: Անհատական առաջարկությունների համար խորհուրդ եմ տալիս հաշվի առնել ձեր կոնկրետ առողջության նպատակները, ընթացիկ դեղամիջոցները և բիոմարկերները: Ցանկանու՞մ եք ուղեցույց կոնկրետ հավելման կամ պրոտոկոլի վերաբերյալ: Կարող եմ օգնել դեղաչափերով, ժամանակացույցով և պոտենցիալ փոխազդեցություններով:",
+        ai_d3_magnesium: "Այո: Մագնեզիումը անհրաժեշտ կոֆակտոր է Վիտամին D-ի նյութափոխանակության համար: Համատեղ ընդունումը բարձրացնում է կենսամատչելիությունը: Խորհուրդ է տրվում՝ D3+K2 առավոտյան սննդի հետ, Մագնեզիում Գլիցինատ երեկոյան՝ քնի աջակցության համար:",
+        ai_interactions: "Միշտ բաժանեք միներալների (ցինկ, մագնեզիում, երկաթ) ընդունումը 2-3 ժամով՝ օպտիմալ կլանման համար: Ճարպալույծ վիտամինները (A,D,E,K) պետք է ընդունել ճարպոտ սննդի հետ: Խորհրդատվեք ձեր բժշկի հետ, եթե ընդունում եք դեղատոմսով դեղամիջոցներ:",
+        ai_timing: "Առավոտ՝ D3/K2, B-Կոմպլեքս, Օմեգա-3, CoQ10: Երեկո՝ ագնեզիում, Ցինկ, Աշվագանդա: Բաժանված դեղաչափերը բարելավում են կլանումը: Ընդունեք ճարպալույծ վիտամինները ճարպ պարունակող սննդի հետ:",
+        ai_safety: "Մեր պրոտոկոլները օգտագործում են կլինիկական ուսումնասիրված դեղաչափեր: Այնուամենայնիվ, խորհրդատվեք ձեր բժշկի հետ, եթե հղի եք, կրծքով կերակրում, ընդունում եք դեղամիջոցներ կամ ունեք քրոնիկական հիվանդություններ: Սկսեք ավելի ցածր դեղաչափերից և աստիճանաբար ավելացրեք: Դադարեցրեք ընդունումը, եթե առաջանան կողմնակի էֆեկտներ:"
       }
     };
 
@@ -633,70 +616,49 @@
     });
 
     // Initialize language
-    const savedLang = localStorage.getItem('veloura-lang') || 'en';
-    setLanguage(savedLang);
+    let currentLang = localStorage.getItem('veloura-lang') || 'en';
+    setLanguage(currentLang);
 
     // Dropdown Functionality
-    const beginBtn = document.getElementById('btn-begin');
-    const beginDropdown = document.getElementById('begin-dropdown');
-    const beginArrow = document.getElementById('begin-arrow');
-    const formulationsBtn = document.getElementById('btn-formulations');
-    const formulationsDropdown = document.getElementById('formulations-dropdown');
-    const formulationsArrow = document.getElementById('formulations-arrow');
+    const dropdowns = [
+      { btn: document.getElementById('btn-begin'), menu: document.getElementById('begin-dropdown'), arrow: document.getElementById('begin-arrow') },
+      { btn: document.getElementById('btn-formulations'), menu: document.getElementById('formulations-dropdown'), arrow: document.getElementById('formulations-arrow') }
+    ];
 
-    function toggleDropdown(btn, dropdown, arrow) {
-      const isShown = dropdown.classList.contains('show');
-      
-      // Close all dropdowns
-      closeAllDropdowns();
-      
-      if (!isShown) {
-        dropdown.classList.add('show');
-        arrow.style.transform = 'rotate(180deg)';
-      }
-    }
-
-    function closeAllDropdowns() {
-      [beginDropdown, formulationsDropdown].forEach(dd => {
-        if (dd) {
-          dd.classList.remove('show');
-        }
+    dropdowns.forEach(({ btn, menu, arrow }) => {
+      if (!btn || !menu) return;
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        // Close all others
+        dropdowns.forEach(d => {
+          if (d.menu !== menu) {
+            d.menu.classList.remove('show');
+            if(d.arrow) d.arrow.style.transform = 'rotate(0deg)';
+          }
+        });
+        // Toggle current
+        menu.classList.toggle('show');
+        if(arrow) arrow.style.transform = menu.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
       });
-      if (beginArrow) beginArrow.style.transform = 'rotate(0deg)';
-      if (formulationsArrow) formulationsArrow.style.transform = 'rotate(0deg)';
-    }
-
-    beginBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleDropdown(beginBtn, beginDropdown, beginArrow);
-    });
-
-    formulationsBtn?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleDropdown(formulationsBtn, formulationsDropdown, formulationsArrow);
     });
 
     // Close dropdowns when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!beginBtn?.contains(e.target) && !beginDropdown?.contains(e.target)) {
-        beginDropdown?.classList.remove('show');
-        if (beginArrow) beginArrow.style.transform = 'rotate(0deg)';
-      }
-      if (!formulationsBtn?.contains(e.target) && !formulationsDropdown?.contains(e.target)) {
-        formulationsDropdown?.classList.remove('show');
-        if (formulationsArrow) formulationsArrow.style.transform = 'rotate(0deg)';
-      }
+    document.addEventListener('click', () => {
+      dropdowns.forEach(d => {
+        if(d.menu) d.menu.classList.remove('show');
+        if(d.arrow) d.arrow.style.transform = 'rotate(0deg)';
+      });
     });
 
     // Smooth scroll for dropdown items
-    document.querySelectorAll('.dropdown-item[href^="#"]').forEach(item => {
-      item.addEventListener('click', (e) => {
+    document.querySelectorAll('#begin-dropdown a, #formulations-dropdown a').forEach(link => {
+      link.addEventListener('click', (e) => {
         e.preventDefault();
-        const targetId = item.getAttribute('href');
-        const target = document.querySelector(targetId);
-        if (target) {
-          closeAllDropdowns();
+        const target = document.querySelector(link.getAttribute('href'));
+        if(target) {
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          dropdowns.forEach(d => d.menu?.classList.remove('show'));
+          document.querySelectorAll('#begin-arrow, #formulations-arrow').forEach(a => a.style.transform = 'rotate(0deg)');
         }
       });
     });
@@ -712,7 +674,7 @@
         content.classList.add('show');
       }, 10);
       document.body.style.overflow = 'hidden';
-      closeAllDropdowns();
+      dropdowns.forEach(d => d.menu?.classList.remove('show'));
     }
 
     function closeAssessmentModal() {
@@ -727,14 +689,12 @@
       }, 300);
     }
 
-    // Nav assessment button
     document.getElementById('nav-assessment-btn')?.addEventListener('click', openAssessmentModal);
 
-    // Assessment form submit
     document.getElementById('assessment-form')?.addEventListener('submit', (e) => {
       e.preventDefault();
       closeAssessmentModal();
-      showToast(i18n[savedLang].toast_assessment || 'Assessment submitted successfully');
+      showToast(i18n[currentLang].toast_assessment || 'Assessment submitted successfully');
       e.target.reset();
     });
 
@@ -749,25 +709,23 @@
       }, 3000);
     }
 
-    // UI Logic (Scroll Reveal, Symptoms, Routine, Chat, Smooth Scroll)
+    // UI Logic
     const observer = new IntersectionObserver((entries) => entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); }), { threshold: 0.1 });
     document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
 
-    // Symptom cards
     document.querySelectorAll('[data-symptom]').forEach(card => {
       card.addEventListener('click', (e) => {
-        if (e.target.closest('button')) return; // Don't toggle if button clicked
+        if (e.target.closest('button')) return;
         const content = card.querySelector('.symptom-content');
         content.classList.toggle('hidden');
         card.classList.toggle('border-medical-accent/40');
       });
     });
 
-    // Add to protocol buttons in symptoms
     document.querySelectorAll('[data-symptom] button').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        showToast(i18n[savedLang].toast_added || 'Added to your protocol');
+        showToast(i18n[currentLang].toast_added || 'Added to your protocol');
       });
     });
 
@@ -794,9 +752,12 @@
     btnM.addEventListener('click', () => toggleRoutine(true));
     btnE.addEventListener('click', () => toggleRoutine(false));
 
-    // Chat functionality
-    const chatInput = document.getElementById('chat-input'), sendBtn = document.getElementById('send-btn'), chatMessages = document.getElementById('chat-messages');
-    const addMessage = (text, isUser = false) => {
+    // AI Chat with Multi-Language Support
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const chatMessages = document.getElementById('chat-messages');
+
+    function addMessage(text, isUser = false) {
       const div = document.createElement('div');
       div.className = `flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''}`;
       div.innerHTML = `
@@ -805,15 +766,42 @@
       `;
       chatMessages.appendChild(div);
       chatMessages.scrollTop = chatMessages.scrollHeight;
-    };
-    const handleSend = () => {
-      const val = chatInput.value.trim(); if(!val) return;
-      addMessage(val, true); chatInput.value = '';
+    }
+
+    function getAIResponse(question) {
+      const q = question.toLowerCase();
+      const responses = i18n[currentLang];
+      
+      // Keyword matching for intelligent responses
+      if (q.includes('magnesium') || q.includes('магний') || q.includes('մագնեզիում')) return responses.ai_magnesium;
+      if (q.includes('vitamin d') || q.includes('d3') || q.includes('витамин d') || q.includes('վիտամին d')) return responses.ai_vitamin_d;
+      if (q.includes('zinc') || q.includes('цинк') || q.includes('ցինկ')) return responses.ai_zinc;
+      if (q.includes('omega') || q.includes('omega-3') || q.includes('омега') || q.includes('օմեգա')) return responses.ai_omega3;
+      if (q.includes('sleep') || q.includes('сон') || q.includes('քուն')) return responses.ai_sleep;
+      if (q.includes('stress') || q.includes('стресс') || q.includes('սթրես')) return responses.ai_stress;
+      if (q.includes('energy') || q.includes('энергия') || q.includes('էներգիա')) return responses.ai_energy;
+      if (q.includes('d3') && q.includes('magnesium') || q.includes('магний') && q.includes('d3') || q.includes('դ3') && q.includes('մագնեզիում')) return responses.ai_d3_magnesium;
+      if (q.includes('interaction') || q.includes('взаимодействие') || q.includes('փոխազդեցություն') || q.includes('combine') || q.includes('together') || q.includes('together') || q.includes('сочетать') || q.includes('համատեղել')) return responses.ai_interactions;
+      if (q.includes('timing') || q.includes('when') || q.includes('time') || q.includes('when to take') || q.includes('когда') || q.includes('երբ')) return responses.ai_timing;
+      if (q.includes('safe') || q.includes('safety') || q.includes('side effect') || q.includes('безопасно') || q.includes('անվտանգ')) return responses.ai_safety;
+      
+      return responses.ai_default;
+    }
+
+    function handleSend() {
+      const val = chatInput.value.trim();
+      if(!val) return;
+      
+      addMessage(val, true);
+      chatInput.value = '';
+      
+      // Show typing indicator
       setTimeout(() => {
-        const res = ["Excellent question. Always separate mineral and fat-soluble vitamin administration by 2-3 hours for optimal absorption.", "Clinical guidelines suggest starting with a conservative dose and titrating based on biomarker response.", "Consult your prescribing physician, but this combination is generally well-tolerated and synergistic.", "Our formulations utilize chelated and micronized compounds to minimize GI adverse events."];
-        addMessage(res[Math.floor(Math.random() * res.length)], false);
-      }, 800);
-    };
+        const response = getAIResponse(val);
+        addMessage(response, false);
+      }, 600);
+    }
+
     sendBtn.addEventListener('click', handleSend);
     chatInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleSend(); });
 
@@ -821,7 +809,7 @@
     document.querySelectorAll('.add-to-cart').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        showToast(i18n[savedLang].toast_added || 'Added to your protocol');
+        showToast(i18n[currentLang].toast_added || 'Added to your protocol');
       });
     });
 
@@ -830,51 +818,31 @@
       e.preventDefault();
       const email = document.getElementById('newsletter-email').value;
       if (email) {
-        showToast(i18n[savedLang].toast_subscribed || 'Successfully subscribed');
+        showToast(i18n[currentLang].toast_subscribed || 'Successfully subscribed');
         e.target.reset();
       }
     });
-const dropdowns = [
-  { btn: document.getElementById('btn-begin'), menu: document.getElementById('begin-dropdown'), arrow: document.getElementById('begin-arrow') },
-  { btn: document.getElementById('btn-formulations'), menu: document.getElementById('formulations-dropdown'), arrow: document.getElementById('formulations-arrow') }
-];
 
-dropdowns.forEach(({ btn, menu, arrow }) => {
-  if (!btn || !menu) return;
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    // Закрыть остальные
-    dropdowns.forEach(d => {
-      if (d.menu !== menu) {
-        d.menu.classList.remove('show');
-        if(d.arrow) d.arrow.style.transform = 'rotate(0deg)';
-      }
+    // Smooth scroll for all anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
     });
-    // Переключить текущий
-    menu.classList.toggle('show');
-    if(arrow) arrow.style.transform = menu.classList.contains('show') ? 'rotate(180deg)' : 'rotate(0deg)';
-  });
-});
 
-// Закрыть при клике вне
-document.addEventListener('click', () => {
-  dropdowns.forEach(d => {
-    if(d.menu) d.menu.classList.remove('show');
-    if(d.arrow) d.arrow.style.transform = 'rotate(0deg)';
-  });
-});
-
-// Плавный скролл для ссылок в dropdown
-document.querySelectorAll('#begin-dropdown a, #formulations-dropdown a').forEach(link => {
-  link.addEventListener('click', (e) => {
-    e.preventDefault();
-    const target = document.querySelector(link.getAttribute('href'));
-    if(target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    // Закрыть меню после клика
-    dropdowns.forEach(d => d.menu?.classList.remove('show'));
-    document.querySelectorAll('#begin-arrow, #formulations-arrow').forEach(a => a.style.transform = 'rotate(0deg)');
-  });
-});
+    // Close modal on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeAssessmentModal();
+        dropdowns.forEach(d => d.menu?.classList.remove('show'));
+      }
     });
   </script>
 </body>
