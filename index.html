@@ -103,47 +103,49 @@
         <span class="text-gradient-med" data-i18n="hero_title2">Wellness Protocols</span>
       </h2>
       <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 font-light" data-i18n="hero_desc">Evidence-based supplementation, pharmaceutical guidance, and precision wellness tracking in a unified clinical interface.</p>
-      
-      <!-- Buttons with Dropdowns -->
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <!-- Begin Protocol Dropdown -->
-        <div class="relative inline-block">
-          <button id="btn-begin" class="bg-medical-accent text-white px-8 py-4 rounded-full font-medium hover:bg-cyan-500 transition glow-accent flex items-center gap-2">
-            <span data-i18n="hero_cta1">Begin Protocol</span>
-            <svg class="w-4 h-4 transition-transform" id="begin-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-          </button>
-          <div id="begin-dropdown" class="dropdown-menu absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-50">
-            <div class="p-2">
-              <a href="#routine" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1" data-i18n="dd_circadian">
-                <div class="flex items-center gap-3">
-                  <span class="text-lg">🌅</span>
-                  <div>
-                    <div class="font-medium text-slate-200">Circadian Protocol</div>
-                    <div class="text-xs text-slate-400" data-i18n="dd_circadian_desc">Morning & evening routines</div>
-                  </div>
-                </div>
-              </a>
-              <a href="#symptoms" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1" data-i18n="dd_symptom">
-                <div class="flex items-center gap-3">
-                  <span class="text-lg">🎯</span>
-                  <div>
-                    <div class="font-medium text-slate-200">Symptom-Based</div>
-                    <div class="text-xs text-slate-400" data-i18n="dd_symptom_desc">Target your concerns</div>
-                  </div>
-                </div>
-              </a>
-              <a href="#assistant" class="dropdown-item block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition" data-i18n="dd_ai">
-                <div class="flex items-center gap-3">
-                  <span class="text-lg">🤖</span>
-                  <div>
-                    <div class="font-medium text-slate-200">AI Pharmacist</div>
-                    <div class="text-xs text-slate-400" data-i18n="dd_ai_desc">Get personalized advice</div>
-                  </div>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-start">
+  <!-- Begin Protocol -->
+  <div class="relative">
+    <button id="btn-begin" class="bg-medical-accent text-white px-8 py-4 rounded-full font-medium hover:bg-cyan-500 transition glow-accent flex items-center gap-2 min-w-[200px] justify-center">
+      <span data-i18n="hero_cta1">Begin Protocol</span>
+      <svg class="w-4 h-4 transition-transform duration-200" id="begin-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+    </button>
+    <div id="begin-dropdown" class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-[9999] opacity-0 invisible transition-all duration-200 transform -translate-y-2">
+      <div class="p-2">
+        <a href="#routine" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
+          <div class="flex items-center gap-3"><span class="text-lg">🌅</span><div><div class="font-medium text-slate-200" data-i18n="dd_circadian">Circadian Protocol</div><div class="text-xs text-slate-400" data-i18n="dd_circadian_desc">Morning & evening routines</div></div></div>
+        </a>
+        <a href="#symptoms" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
+          <div class="flex items-center gap-3"><span class="text-lg">🎯</span><div><div class="font-medium text-slate-200" data-i18n="dd_symptom">Symptom-Based</div><div class="text-xs text-slate-400" data-i18n="dd_symptom_desc">Target your concerns</div></div></div>
+        </a>
+        <a href="#assistant" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition">
+          <div class="flex items-center gap-3"><span class="text-lg"></span><div><div class="font-medium text-slate-200" data-i18n="dd_ai">AI Pharmacist</div><div class="text-xs text-slate-400" data-i18n="dd_ai_desc">Get personalized advice</div></div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- View Formulations -->
+  <div class="relative">
+    <button id="btn-formulations" class="glass-dark px-8 py-4 rounded-full font-medium hover:bg-slate-800/60 transition flex items-center gap-2 min-w-[200px] justify-center">
+      <span data-i18n="hero_cta2">View Formulations</span>
+      <svg class="w-4 h-4 transition-transform duration-200" id="formulations-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+    </button>
+    <div id="formulations-dropdown" class="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 glass-dark rounded-xl border border-slate-700/50 shadow-2xl z-[9999] opacity-0 invisible transition-all duration-200 transform -translate-y-2">
+      <div class="p-2">
+        <a href="#products" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
+          <div class="flex items-center gap-3"><span class="text-lg">💊</span><div><div class="font-medium text-slate-200" data-i18n="dd_all_prod">All Products</div><div class="text-xs text-slate-400" data-i18n="dd_all_prod_desc">Browse full catalog</div></div></div>
+        </a>
+        <a href="#ingredients" class="block px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition mb-1">
+          <div class="flex items-center gap-3"><span class="text-lg">🔬</span><div><div class="font-medium text-slate-200" data-i18n="dd_science">Science</div><div class="text-xs text-slate-400" data-i18n="dd_science_desc">Clinical ingredients</div></div></div>
+        </a>
+        <button onclick="openAssessmentModal()" class="w-full text-left px-4 py-3 text-sm hover:bg-slate-700/50 rounded-lg transition">
+          <div class="flex items-center gap-3"><span class="text-lg">📋</span><div><div class="font-medium text-slate-200" data-i18n="dd_take">Take Assessment</div><div class="text-xs text-slate-400" data-i18n="dd_take_desc">Get recommendations</div></div></div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
         <!-- View Formulations Dropdown -->
         <div class="relative inline-block">
